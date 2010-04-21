@@ -1,0 +1,16 @@
+This is a fork of Jeff Lamarche's Cocoa Barcodes project, with the code modified to work on the iPhone and iPad.  In my testing, a CCD scanner can read UPC barcodes directly from the screen w/ no issue; I haven't tested laser barcode scanners yet.  
+
+Things that are missing:
+
+ * Rendering the actual numbers of a code below the barcode
+ * rectForPage, knowsPageRange don't have any affect on the barcode rendering now
+
+Things that have changed:
+
+ * the UIImage for the barcode is generated on the calling thread, as opposed to the library's old behavior of generating the image on a separate thread
+ * the library originally used NSBezierPath to generate the bars, these have been replaced with CGFillRect calls
+
+Things that have been fixed:
+
+ * The Code128 checksum generation 
+
