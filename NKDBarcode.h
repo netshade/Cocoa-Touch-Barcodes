@@ -43,7 +43,7 @@
  @discussion This value is used to determine the drawing location of various bars. Though many
              devices have different resolution, drawing in Cocoa seems to based on 72 pixels per inch
  */
-#define kScreenResolution	72.00
+#define kScreenResolution	163.00
 
 /*!
  @class NKDBarcode
