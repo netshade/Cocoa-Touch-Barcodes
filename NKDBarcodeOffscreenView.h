@@ -67,5 +67,6 @@
  */
 -(CGRect)rectForPage:(int)pageNum;
 
-- (UIImage *)imageWithPNGInsideRect:(CGRect)rect;
+- (UIImage *)imageInsideRect:(CGRect)rect;
+- (NSData *)pdfInsideRect:(CGRect)rect;
 @end

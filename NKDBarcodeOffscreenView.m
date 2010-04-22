@@ -31,6 +31,8 @@
 - (void)drawRect:(CGRect)rect
 {
 	CGContextRef context = UIGraphicsGetCurrentContext();
+	CGContextSetAllowsAntialiasing(context, false);
+	CGContextSetInterpolationQuality(context, kCGInterpolationNone);
 	int				i, barCount=0;
     float			curPos = [barcode firstBar];
     NSString 			*codeString = [barcode completeBarcode];
@@ -51,13 +53,20 @@
             // If last character is a bar, it needs to be printed here.
             if (i == [codeString length]-1)
             {
-				CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
 				CGContextSetLineWidth(context, 0.0);
-				CGContextFillRect(context, CGRectMake(curPos,
+				CGMutablePathRef path = CGPathCreateMutable();
+				CGPathAddRect(path, NULL,  CGRectMake(curPos,
 													  [barcode barBottom:lastBarIndex],
 													  [barcode barWidth] * barCount,
-													   [barcode barTop:lastBarIndex] - [barcode barBottom:lastBarIndex]));
-
+													  [barcode barTop:lastBarIndex] - [barcode barBottom:lastBarIndex]));
+/*				CGContextFillRect(context, CGRectMake(curPos,
+													  [barcode barBottom:lastBarIndex],
+													  [barcode barWidth] * barCount,
+													   [barcode barTop:lastBarIndex] - [barcode barBottom:lastBarIndex])); */
+				CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
+				CGContextAddPath(context, path);
+				CGContextDrawPath(context, kCGPathFill);
+				CGPathRelease(path);
 				CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
             }
         }
@@ -65,13 +74,23 @@
         {
             if (started)
             {
-				CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
 				CGContextSetLineWidth(context, 0.0);
+				CGMutablePathRef path = CGPathCreateMutable();
+				/*
 				CGContextFillRect(context, CGRectMake(curPos,
 													  [barcode barBottom:lastBarIndex],
 													  [barcode barWidth] * barCount,
 													  [barcode barTop:lastBarIndex] - [barcode barBottom:lastBarIndex] ));
-				CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
+				 */
+				CGPathAddRect(path, NULL, CGRectMake(curPos,
+													 [barcode barBottom:lastBarIndex],
+													 [barcode barWidth] * barCount,
+													 [barcode barTop:lastBarIndex] - [barcode barBottom:lastBarIndex] ));
+				CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);	
+				CGContextAddPath(context, path);
+				CGContextDrawPath(context, kCGPathFill);
+				CGPathRelease(path);
+				CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor); 
 
             }
             curPos += [barcode barWidth] * (barCount + 1);
@@ -187,47 +206,41 @@
 {
     return  CGRectMake(0,0,[[self barcode] width], [[self barcode] height]);
 }
-- (void)_renderViewAsPNG:(NSMutableDictionary *)info
+- (UIImage *)_renderViewAsImage:(CGRect) rect
     /* this method is not intended to be called directly */
 /* used by dataWithPDFInsideRect: when multithreading is required */
 {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	CGRect rect = [(NSValue *)[info objectForKey:@"region"] CGRectValue];
 	UIGraphicsBeginImageContext(CGSizeMake(rect.size.width, rect.size.height));
 	[self drawRect:rect];
 	UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
-	NSData * data = UIImagePNGRepresentation(img);
-	NSMutableData * output = [info objectForKey:@"output"];
-	[output appendData:data];
-    doneRendering = TRUE;
-    
-    [pool release];
+	return img;
 }
 
-- (UIImage *)imageWithPNGInsideRect:(CGRect)rect
+- (UIImage *)imageInsideRect:(CGRect)rect
     /* This method overrides the default NSView version to allow the view 
     to be rendered to PDF within another print operation. If there is 
     already a print operation running on the current thread, this method 
     spawns a new thread to render the PDF, otherwise the default NSView 
  version of dataWithPDFInsideRect: is called... */
 {
-	NSMutableDictionary *info = [NSMutableDictionary dictionary];
-	NSValue * v = [NSValue valueWithCGRect:rect];
-	NSMutableData * d = [NSMutableData data];
-	[info setObject:v forKey:@"region"];
-	[info setObject:d forKey:@"output"];
-	
-	doneRendering = FALSE;
-	[self _renderViewAsPNG:info];
-/*
-	[NSThread detachNewThreadSelector:@selector(_renderViewAsPNG:) toTarget:self withObject:info];
+	UIImage * result = [self _renderViewAsImage:rect];
+	return result;
+}
 
-	while (!doneRendering)
-		[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
-*/
-	UIImage * output = [UIImage imageWithData:d];
-	return output;
+- (NSData *)pdfInsideRect:(CGRect)rect {
+	NSMutableData * data = [NSMutableData data];
+	CGDataConsumerRef consumer = CGDataConsumerCreateWithCFData((CFMutableDataRef)data);
+	CGRect media = CGRectMake(0.0, 0.0, rect.size.width, rect.size.height);
+	CGContextRef context = CGPDFContextCreate(consumer, &media, (CFDictionaryRef)[NSDictionary dictionary]);
+	UIGraphicsPushContext(context);
+	CGPDFContextBeginPage(context, (CFDictionaryRef)[NSDictionary dictionary]);
+	[self drawRect:rect];
+	UIGraphicsPopContext();
+	CGPDFContextEndPage(context);
+	CGPDFContextClose(context);
+	CGDataConsumerRelease(consumer);
+	return data;
 }
 
 
