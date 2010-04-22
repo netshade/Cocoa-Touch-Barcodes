@@ -31,4 +31,6 @@ This category adds a single class method to NSImage that generates a resolution-
 @result Initialized NSImage with PDF representation that represents the barcode pass in.
  */
 +(UIImage *)imageFromBarcode:(NKDBarcode *)barcode;
++(NSData *)pdfFromBarcode:(NKDBarcode *)barcode;
++(UIImage *)imageFromBarcode:(NKDBarcode *)barcode inRect:(CGRect) rect;
 @end
