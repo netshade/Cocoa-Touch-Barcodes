@@ -27,7 +27,7 @@
 #import "NKDEAN13Barcode.h"
 #import "NKDCode128Barcode.h"
 #import "NKDCodabarBarcode.h"
-#import "NSImage-NKDBarcode.h"
+#import "UIImage-NKDBarcode.h"
 #import "UIImage-Normalize.h"
 #import "NKDUPCEBarcode.h"
 #import "NKDEAN8Barcode.h"
