@@ -356,7 +356,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "1E0C7EE7-96DC-4A89-8F3E-7297355AFD89";
-				SDKROOT = iphoneos3.2;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Debug;
 		};
@@ -370,7 +370,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.2;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Release;
 		};
