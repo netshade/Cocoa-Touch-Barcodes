@@ -240,6 +240,7 @@
 	CGPDFContextEndPage(context);
 	CGPDFContextClose(context);
 	CGDataConsumerRelease(consumer);
+	CGContextRelease(context);
 	return data;
 }
 
