@@ -58,12 +58,20 @@
             break;
     }
 	sum += startCode;
+	int codeLen = strlen(code);
     if (codeSet != SET_C)
-        for (int i=0, j = 1; i < strlen(code); i++, j++)
+        for (int i=0, j = 1; i < codeLen; i++, j++)
             sum += j * [self _valueForChar:code[i]];
-    else // SET_C
-        for (int i=0, j = 1; i < strlen(code); i+=2, j++)
-            sum += j * [[NSString stringWithFormat:@"%c%c", code[i], code[i+1]] intValue];
+    else { // SET_C
+		if(codeLen % 2 != 0){
+			code = (char *)[[NSString stringWithFormat:@"0%@", [self content]] lossyCString];
+			codeLen ++;
+		}
+        for (int i=0, j = 1; i < codeLen; i+=2, j++){
+			NSString * pair = [NSString stringWithFormat:@"%c%c", code[i], code[i+1]];
+            sum += j * [pair intValue];
+		}
+	}
     checkDigit = (char)(sum%103);
 
 }
