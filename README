@@ -13,4 +13,4 @@ Things that have changed:
 Things that have been fixed:
 
  * The Code128 checksum generation 
-
+ * Generation of EAN-13 barcodes that start with 2. See http://code.google.com/p/cocoabarcodes/issues/detail?id=3
