@@ -2,7 +2,7 @@
 //  NKDEAN13Barcode.m
 // -----------------------------------------------------------------------------------
 //  Created by Jeff LaMarche on Fri May 10 2002.
-//  ©2002 Naked Software. All rights reserved.
+//  ï¿½2002 Naked Software. All rights reserved.
 // -----------------------------------------------------------------------------------
 // THIS	SOURCE CODE IS PROVIDED AS-IS WITH NO WARRANTY OF ANY KIND
 // -----------------------------------------------------------------------------------
@@ -100,8 +100,8 @@
             switch (index)
             {
                 case 1:
-                case 3:
-                case 4:
+                case 2:
+                case 5:
                     return ODD_PARITY;
                 default:
                     return EVEN_PARITY;
