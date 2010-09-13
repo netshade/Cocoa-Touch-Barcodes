@@ -3,6 +3,7 @@ Thumbs.db
 *.pbxuser
 *.perspectivev3
 *.modelv3
+*.mode1v3
 build/**
 build
 .hg
