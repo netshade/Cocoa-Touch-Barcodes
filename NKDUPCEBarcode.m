@@ -21,7 +21,7 @@
 
     [self setContent:inContent];
     if([[self content] length] == 11)
-        [self setContent:[self UPCAToUPCE:[NSString stringWithFormat:@"%@%c", [self content], [self checkDigit]]]];
+        [self setContent:[NKDUPCEBarcode UPCAToUPCE:[NSString stringWithFormat:@"%@%c", [self content], [self checkDigit]]]];
     else if ([[self content] length] == 8)
     {
         [self setCheckDigit:[[self content] characterAtIndex:7]];
