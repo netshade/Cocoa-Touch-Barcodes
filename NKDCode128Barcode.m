@@ -155,254 +155,453 @@
 {
     // SET_A and SET_B have a lot of characters in common, SET_C uses a
     // separate encoding method.
-    switch(inChar)
-    {
-        case ' ':
-            return @"11011001100";
-        case '!':
-            return @"11001101100";
-        case '"':
-            return @"11001100110";
-        case '#':
-            return @"10010011000";
-        case '$':
-            return @"10010001100";
-        case '%':
-            return @"10001001100";
-        case '&':
-            return @"10011001000";
-        case '\'':
-            return @"10011000100";
-        case '(':
-            return @"10001100100";
-        case ')':
-            return @"11001001000";
-        case '*':
-            return @"11001000100";
-        case '+':
-            return @"11000100100";
-        case ',':
-            return @"10110011100";
-        case '-':
-            return @"10011011100";
-        case '.':
-            return @"10011001110";
-        case '/':
-            return @"10111001100";
-        case '0':
-            return @"10011101100";
-        case '1':
-            return @"10011100110";
-        case '2':
-            return @"11001110010";
-        case '3':
-            return @"11001011100";
-        case '4':
-            return @"11001001110";
-        case '5':
-            return @"11011100100";
-        case '6':
-            return @"11001110100";
-        case '7':
-            return @"11101101110";
-        case '8':
-            return @"11101001100";
-        case '9':
-            return @"11100101100";
-        case ':':
-            return @"11100100110";
-        case '<':
-            return @"11100110100";
-        case '=':
-            return @"11100110010";
-        case '>':
-            return @"11011011000";
-        case '?':
-            return @"11011000110";
-        case '@':
-            return @"11000110110";
-        case 'A':
-            return @"10100011000";
-        case 'B':
-            return @"10001011000";
-        case 'C':
-            return @"10001000110";
-        case 'D':
-            return @"10110001000";
-        case 'E':
-            return @"10001101000";
-        case 'F':
-            return @"10001100010";
-        case 'G':
-            return @"11010001000";
-        case 'H':
-            return @"11000101000";
-        case 'I':
-            return @"11000100010";
-        case 'J':
-            return @"10110111000";
-        case 'K':
-            return @"10110001110";
-        case 'L':
-            return @"10001101110";
-        case 'M':
-            return @"10111011000";
-        case 'N':
-            return @"10111000110";
-        case 'O':
-            return @"10001110110";
-        case 'P':
-            return @"11101110110";
-        case 'Q':
-            return @"11010001110";
-        case 'R':
-            return @"11000101110";
-        case 'S':
-            return @"11011101000";
-        case 'T':
-            return @"11011100010";
-        case 'U':
-            return @"11011101110";
-        case 'V':
-            return @"11101011000";
-        case 'W':
-            return @"11101000110";
-        case 'X':
-            return @"11100010110";
-        case 'Z':
-            return @"11101100010";
-        case '[':
-            return @"11100011010";
-        case '\\':
-            return @"11101111010";
-        case ']':
-            return @"11001000010";
-        case '^':
-            return @"11110001010";
-        case '_':
-            return @"10100110000";
-        case '`':
-            return (inSet == SET_B) ? @"10100001100" : @"";
-        case 0:		// NUL
-            return (inSet == SET_A) ? @"10100001100" : @"";
-        case 'a':
-            return (inSet == SET_B) ? @"10010110000" : @"";
-        case 1:		// SOH
-            return (inSet == SET_A) ? @"10010110000" : @"";
-        case 'b':
-            return (inSet == SET_B) ? @"10010000110" : @"";
-        case 2:		// STX
-            return (inSet == SET_A) ? @"10010000110" : @"";
-        case 'c':
-            return (inSet == SET_B) ? @"10000101100" : @"";
-        case 3:		// ETX
-            return (inSet == SET_A) ? @"10000101100" : @"";
-        case 'd':
-            return (inSet == SET_B) ? @"10000100110" : @"";
-        case 4:		// EOT
-            return (inSet == SET_A) ? @"10000100110" : @"";
-        case 'e':
-            return (inSet == SET_B) ? @"10110010000" : @"";
-        case 5:		// ENQ
-            return (inSet == SET_A) ? @"10110010000" : @"";
-        case 'f':
-            return (inSet == SET_B) ? @"10110000100" : @"";
-        case 6:		// ACK
-            return (inSet == SET_A) ? @"10110000100" : @"";
-        case 'g':
-            return (inSet == SET_B) ? @"10011010000" : @"";
-        case 7:		// BEL
-            return (inSet == SET_A) ? @"10011010000" : @"";
-        case 'h':
-            return (inSet == SET_B) ? @"10011000010" : @"";
-        case 8:		// BS
-            return (inSet == SET_A) ? @"10011000010" : @"";
-        case 'i':
-            return (inSet == SET_B) ? @"10000110100" : @"";
-        case 9:		// HT
-            return (inSet == SET_A) ? @"10000110100" : @"";
-        case 'j':
-            return (inSet == SET_B) ? @"10000110010" : @"";
-        case 10:	// LF
-            return (inSet == SET_A) ? @"10000110010" : @"";
-        case 'k':
-            return (inSet == SET_B) ? @"11000010010" : @"";
-        case 11:	// VT
-            return (inSet == SET_A) ? @"11000010010" : @"";
-        case 'l':
-            return (inSet == SET_B) ? @"11001010000" : @"";
-        case 12:	// FF
-            return (inSet == SET_A) ? @"11001010000" : @"";
-        case 'm':
-            return (inSet == SET_B) ? @"11110111010" : @"";
-        case 13: 	// CR
-            return (inSet == SET_A) ? @"11110111010" : @"";
-        case 'n':
-            return (inSet == SET_B) ? @"11000010100" : @"";
-        case 14:	// SO
-            return (inSet == SET_A) ? @"11000010100" : @"";
-        case 'o':
-            return (inSet == SET_B) ? @"10001111010" : @"";
-        case 15:	// SI
-            return (inSet == SET_A) ? @"10001111010" : @"";
-        case 'p':
-            return (inSet == SET_B) ? @"10100111100" : @"";
-        case 16:	// DLE
-            return (inSet == SET_A) ? @"10100111100" : @"";
-        case 'q':
-            return (inSet == SET_B) ? @"10010111100" : @"";
-        case 17:	// DC1
-            return (inSet == SET_A) ? @"10010111100" : @"";
-        case 'r':
-            return (inSet == SET_B) ? @"10010011110" : @"";
-        case 18:	// DC2
-            return (inSet == SET_A) ? @"10010011110" : @"";
-        case 's':
-            return (inSet == SET_B) ? @"10111100100" : @"";
-        case 19:	// DC3
-            return (inSet == SET_A) ? @"10111100100" : @"";
-        case 't':
-            return (inSet == SET_B) ? @"10111100100" : @"";
-        case 20:	// DC4
-            return (inSet == SET_A) ? @"10111100100" : @"";
-        case 'u':
-            return (inSet == SET_B) ? @"10011110010" : @"";
-        case 21:	// NAK
-            return (inSet == SET_A) ? @"10011110010" : @"";
-        case 'v':
-            return (inSet == SET_B) ? @"11110100100" : @"";
-        case 22:	// SYN
-            return (inSet == SET_A) ? @"11110100100" : @"";
-        case 'w':
-            return (inSet == SET_B) ? @"11110010100" : @"";
-        case 23:	// ETB
-            return (inSet == SET_A) ? @"11110010100" : @"";
-        case 'x':
-            return (inSet == SET_B) ? @"11110010010" : @"";
-        case 24:	// CAN
-            return (inSet == SET_A) ? @"11110010010" : @"";
-        case 'y':
-            return (inSet == SET_B) ? @"11011011110" : @"";
-        case 25:	// EM
-            return (inSet == SET_A) ? @"11011011110" : @"";
-        case 'z':
-            return (inSet == SET_B) ? @"11011110110" : @"";
-        case 26:	// SUB
-            return (inSet == SET_A) ? @"11011110110" : @"";
-        case '{':
-            return (inSet == SET_B) ? @"11110110110" : @"";
-        case 27:	// ESC
-            return (inSet == SET_A) ? @"11110110110" : @"";
-        case '|':
-            return (inSet == SET_B) ? @"10101111000" : @"";
-        case 28:	// FS
-            return (inSet == SET_A) ? @"10101111000" : @"";
-        case '}':
-            return (inSet == SET_B) ? @"10100011110" : @"";
-        case 29:	// GS
-            return (inSet == SET_A) ? @"10100011110" : @"";
-    }
-    return @"";
+	
+	if(inSet == SET_B) {
+		switch (inChar) {
+			case ' ':
+				return @"11011001100";
+			case '!':
+				return @"11001101100";
+			case '"':
+				return @"11001100110";
+			case '#':
+				return @"10010011000";
+			case '$':
+				return @"10010001100";
+			case '%':
+				return @"10001001100";
+			case '&':
+				return @"10011001000";
+			case '\'':
+				return @"10011000100";
+			case '(':
+				return @"10001100100";
+			case ')':
+				return @"11001001000";
+			case '*':
+				return @"11001000100";
+			case '+':
+				return @"11000100100";
+			case ',':
+				return @"10110011100";
+			case '-':
+				return @"10011011100";
+			case '.':
+				return @"10011001110";
+			case '/':
+				return @"10111001100";
+			case '0':
+				return @"10011101100";
+			case '1':
+				return @"10011100110";
+			case '2':
+				return @"11001110010";
+			case '3':
+				return @"11001011100";
+			case '4':
+				return @"11001001110";
+			case '5':
+				return @"11011100100";
+			case '6':
+				return @"11001110100";
+			case '7':
+				return @"11101101110";
+			case '8':
+				return @"11101001100";
+			case '9':
+				return @"11100101100";
+			case ':':
+				return @"11100100110";
+			case ';':
+				return @"11101100100";
+			case '<':
+				return @"11100110100";
+			case '=':
+				return @"11100110010";
+			case '>':
+				return @"11011011000";
+			case '?':
+				return @"11011000110";
+			case '@':
+				return @"11000110110";
+			case 'A':
+				return @"10100011000";
+			case 'B':
+				return @"10001011000";
+			case 'C':
+				return @"10001000110";
+			case 'D':
+				return @"10110001000";
+			case 'E':
+				return @"10001101000";
+			case 'F':
+				return @"10001100010";
+			case 'G':
+				return @"11010001000";
+			case 'H':
+				return @"11000101000";
+			case 'I':
+				return @"11000100010";
+			case 'J':
+				return @"10110111000";
+			case 'K':
+				return @"10110001110";
+			case 'L':
+				return @"10001101110";
+			case 'M':
+				return @"10111011000";
+			case 'N':
+				return @"10111000110";
+			case 'O':
+				return @"10001110110";
+			case 'P':
+				return @"11101110110";
+			case 'Q':
+				return @"11010001110";
+			case 'R':
+				return @"11000101110";
+			case 'S':
+				return @"11011101000";
+			case 'T':
+				return @"11011100010";
+			case 'U':
+				return @"11011101110";
+			case 'V':
+				return @"11101011000";
+			case 'W':
+				return @"11101000110";
+			case 'X':
+				return @"11100010110";
+			case 'Y':
+				return @"11101101000";
+			case 'Z':
+				return @"11101100010";
+			case '[':
+				return @"11100011010";
+			case '\\':
+				return @"11101111010";
+			case ']':
+				return @"11001000010";
+			case '^':
+				return @"11110001010";
+			case '_':
+				return @"10100110000";
+			case '`':
+				return @"10100001100";
+			case 'a':
+				return @"10010110000";
+			case 'b':
+				return @"10010000110";
+			case 'c':
+				return @"10000101100";
+			case 'd':
+				return @"10000100110";
+			case 'e':
+				return @"10110010000";
+			case 'f':
+				return @"10110000100";
+			case 'g':
+				return @"10011010000";
+			case 'h':
+				return @"10011000010";
+			case 'i':
+				return @"10000110100";
+			case 'j':
+				return @"10000110010";
+			case 'k':
+				return @"11000010010";
+			case 'l':
+				return @"11001010000";
+			case 'm':
+				return @"11110111010";
+			case 'n':
+				return @"11000010100";
+			case 'o':
+				return @"10001111010";
+			case 'p':
+				return @"10100111100";
+			case 'q':
+				return @"10010111100";
+			case 'r':
+				return @"10010011110";
+			case 's':
+				return @"10111100100";
+			case 't':
+				return @"10011110100";
+			case 'u':
+				return @"10011110010";
+			case 'v':
+				return @"11110100100";
+			case 'w':
+				return @"11110010100";
+			case 'x':
+				return @"11110010010";
+			case 'y':
+				return @"11011011110";
+			case 'z':
+				return @"11011110110";
+			case '{':
+				return @"11110110110";
+			case '|':
+				return @"10101111000";
+			case '}':
+				return @"10100011110";
+			case '~':
+				return @"10001011110";
+		}
+	} else {
+		switch(inChar)
+		{
+			case ' ':
+				return @"11011001100";
+			case '!':
+				return @"11001101100";
+			case '"':
+				return @"11001100110";
+			case '#':
+				return @"10010011000";
+			case '$':
+				return @"10010001100";
+			case '%':
+				return @"10001001100";
+			case '&':
+				return @"10011001000";
+			case '\'':
+				return @"10011000100";
+			case '(':
+				return @"10001100100";
+			case ')':
+				return @"11001001000";
+			case '*':
+				return @"11001000100";
+			case '+':
+				return @"11000100100";
+			case ',':
+				return @"10110011100";
+			case '-':
+				return @"10011011100";
+			case '.':
+				return @"10011001110";
+			case '/':
+				return @"10111001100";
+			case '0':
+				return @"10011101100";
+			case '1':
+				return @"10011100110";
+			case '2':
+				return @"11001110010";
+			case '3':
+				return @"11001011100";
+			case '4':
+				return @"11001001110";
+			case '5':
+				return @"11011100100";
+			case '6':
+				return @"11001110100";
+			case '7':
+				return @"11101101110";
+			case '8':
+				return @"11101001100";
+			case '9':
+				return @"11100101100";
+			case ':':
+				return @"11100100110";
+			case '<':
+				return @"11100110100";
+			case '=':
+				return @"11100110010";
+			case '>':
+				return @"11011011000";
+			case '?':
+				return @"11011000110";
+			case '@':
+				return @"11000110110";
+			case 'A':
+				return @"10100011000";
+			case 'B':
+				return @"10001011000";
+			case 'C':
+				return @"10001000110";
+			case 'D':
+				return @"10110001000";
+			case 'E':
+				return @"10001101000";
+			case 'F':
+				return @"10001100010";
+			case 'G':
+				return @"11010001000";
+			case 'H':
+				return @"11000101000";
+			case 'I':
+				return @"11000100010";
+			case 'J':
+				return @"10110111000";
+			case 'K':
+				return @"10110001110";
+			case 'L':
+				return @"10001101110";
+			case 'M':
+				return @"10111011000";
+			case 'N':
+				return @"10111000110";
+			case 'O':
+				return @"10001110110";
+			case 'P':
+				return @"11101110110";
+			case 'Q':
+				return @"11010001110";
+			case 'R':
+				return @"11000101110";
+			case 'S':
+				return @"11011101000";
+			case 'T':
+				return @"11011100010";
+			case 'U':
+				return @"11011101110";
+			case 'V':
+				return @"11101011000";
+			case 'W':
+				return @"11101000110";
+			case 'X':
+				return @"11100010110";
+			case 'Y':
+				return @"11101101000";
+			case 'Z':
+				return @"11101100010";
+			case '[':
+				return @"11100011010";
+			case '\\':
+				return @"11101111010";
+			case ']':
+				return @"11001000010";
+			case '^':
+				return @"11110001010";
+			case '_':
+				return @"10100110000";
+			case '`':
+				return (inSet == SET_B) ? @"10100001100" : @"";
+			case 0:		// NUL
+				return (inSet == SET_A) ? @"10100001100" : @"";
+			case 'a':
+				return (inSet == SET_B) ? @"10010110000" : @"";
+			case 1:		// SOH
+				return (inSet == SET_A) ? @"10010110000" : @"";
+			case 'b':
+				return (inSet == SET_B) ? @"10010000110" : @"";
+			case 2:		// STX
+				return (inSet == SET_A) ? @"10010000110" : @"";
+			case 'c':
+				return (inSet == SET_B) ? @"10000101100" : @"";
+			case 3:		// ETX
+				return (inSet == SET_A) ? @"10000101100" : @"";
+			case 'd':
+				return (inSet == SET_B) ? @"10000100110" : @"";
+			case 4:		// EOT
+				return (inSet == SET_A) ? @"10000100110" : @"";
+			case 'e':
+				return (inSet == SET_B) ? @"10110010000" : @"";
+			case 5:		// ENQ
+				return (inSet == SET_A) ? @"10110010000" : @"";
+			case 'f':
+				return (inSet == SET_B) ? @"10110000100" : @"";
+			case 6:		// ACK
+				return (inSet == SET_A) ? @"10110000100" : @"";
+			case 'g':
+				return (inSet == SET_B) ? @"10011010000" : @"";
+			case 7:		// BEL
+				return (inSet == SET_A) ? @"10011010000" : @"";
+			case 'h':
+				return (inSet == SET_B) ? @"10011000010" : @"";
+			case 8:		// BS
+				return (inSet == SET_A) ? @"10011000010" : @"";
+			case 'i':
+				return (inSet == SET_B) ? @"10000110100" : @"";
+			case 9:		// HT
+				return (inSet == SET_A) ? @"10000110100" : @"";
+			case 'j':
+				return (inSet == SET_B) ? @"10000110010" : @"";
+			case 10:	// LF
+				return (inSet == SET_A) ? @"10000110010" : @"";
+			case 'k':
+				return (inSet == SET_B) ? @"11000010010" : @"";
+			case 11:	// VT
+				return (inSet == SET_A) ? @"11000010010" : @"";
+			case 'l':
+				return (inSet == SET_B) ? @"11001010000" : @"";
+			case 12:	// FF
+				return (inSet == SET_A) ? @"11001010000" : @"";
+			case 'm':
+				return (inSet == SET_B) ? @"11110111010" : @"";
+			case 13: 	// CR
+				return (inSet == SET_A) ? @"11110111010" : @"";
+			case 'n':
+				return (inSet == SET_B) ? @"11000010100" : @"";
+			case 14:	// SO
+				return (inSet == SET_A) ? @"11000010100" : @"";
+			case 'o':
+				return (inSet == SET_B) ? @"10001111010" : @"";
+			case 15:	// SI
+				return (inSet == SET_A) ? @"10001111010" : @"";
+			case 'p':
+				return (inSet == SET_B) ? @"10100111100" : @"";
+			case 16:	// DLE
+				return (inSet == SET_A) ? @"10100111100" : @"";
+			case 'q':
+				return (inSet == SET_B) ? @"10010111100" : @"";
+			case 17:	// DC1
+				return (inSet == SET_A) ? @"10010111100" : @"";
+			case 'r':
+				return (inSet == SET_B) ? @"10010011110" : @"";
+			case 18:	// DC2
+				return (inSet == SET_A) ? @"10010011110" : @"";
+			case 's':
+				return (inSet == SET_B) ? @"10111100100" : @"";
+			case 19:	// DC3
+				return (inSet == SET_A) ? @"10111100100" : @"";
+			case 't':
+				return (inSet == SET_B) ? @"10111100100" : @"";
+			case 20:	// DC4
+				return (inSet == SET_A) ? @"10111100100" : @"";
+			case 'u':
+				return (inSet == SET_B) ? @"10011110010" : @"";
+			case 21:	// NAK
+				return (inSet == SET_A) ? @"10011110010" : @"";
+			case 'v':
+				return (inSet == SET_B) ? @"11110100100" : @"";
+			case 22:	// SYN
+				return (inSet == SET_A) ? @"11110100100" : @"";
+			case 'w':
+				return (inSet == SET_B) ? @"11110010100" : @"";
+			case 23:	// ETB
+				return (inSet == SET_A) ? @"11110010100" : @"";
+			case 'x':
+				return (inSet == SET_B) ? @"11110010010" : @"";
+			case 24:	// CAN
+				return (inSet == SET_A) ? @"11110010010" : @"";
+			case 'y':
+				return (inSet == SET_B) ? @"11011011110" : @"";
+			case 25:	// EM
+				return (inSet == SET_A) ? @"11011011110" : @"";
+			case 'z':
+				return (inSet == SET_B) ? @"11011110110" : @"";
+			case 26:	// SUB
+				return (inSet == SET_A) ? @"11011110110" : @"";
+			case '{':
+				return (inSet == SET_B) ? @"11110110110" : @"";
+			case 27:	// ESC
+				return (inSet == SET_A) ? @"11110110110" : @"";
+			case '|':
+				return (inSet == SET_B) ? @"10101111000" : @"";
+			case 28:	// FS
+				return (inSet == SET_A) ? @"10101111000" : @"";
+			case '}':
+				return (inSet == SET_B) ? @"10100011110" : @"";
+			case 29:	// GS
+				return (inSet == SET_A) ? @"10100011110" : @"";
+		}
+	}
+	
+	return @"";
 }
 // -----------------------------------------------------------------------------------
 -(CodeSet)_bestCodeSetForContent
@@ -453,20 +652,208 @@
 {
     int	pair = [inPair intValue];
 
-    if (pair <= 63)
-        return [self _encodeChar:(char)(pair + 32) withSet:SET_B];
-    else if ( (pair > 63) && (pair <= 95) )
-        return [self _encodeChar:(char)(pair - 64) withSet:SET_A];
-    else switch (pair)
+    switch (pair)
     {
-        case 96:
-            return @"10111100010";
-        case 97:
-            return @"11110101000";
-        case 98:
-            return @"11110100010";
-        case 99:
-            return @"10111011110";
+        case 0:
+			return @"11011001100";
+		case 1:
+			return @"11001101100";
+		case 2:
+			return @"11001100110";
+		case 3:
+			return @"10010011000";
+		case 4:
+			return @"10010001100";
+		case 5:
+			return @"10001001100";
+		case 6:
+			return @"10011001000";
+		case 7:
+			return @"10011000100";
+		case 8:
+			return @"10001100100";
+		case 9:
+			return @"11001001000";
+		case 10:
+			return @"11001000100";
+		case 11:
+			return @"11000100100";
+		case 12:
+			return @"10110011100";
+		case 13:
+			return @"10011011100";
+		case 14:
+			return @"10011001110";
+		case 15:
+			return @"10111001100";
+		case 16:
+			return @"10011101100";
+		case 17:
+			return @"10011100110";
+		case 18:
+			return @"11001110010";
+		case 19:
+			return @"11001011100";
+		case 20:
+			return @"11001001110";
+		case 21:
+			return @"11011100100";
+		case 22:
+			return @"11001110100";
+		case 23:
+			return @"11101101110";
+		case 24:
+			return @"11101001100";
+		case 25:
+			return @"11100101100";
+		case 26:
+			return @"11100100110";
+		case 27:
+			return @"11101100100";
+		case 28:
+			return @"11100110100";
+		case 29:
+			return @"11100110010";
+		case 30:
+			return @"11011011000";
+		case 31:
+			return @"11011000110";
+		case 32:
+			return @"11000110110";
+		case 33:
+			return @"10100011000";
+		case 34:
+			return @"10001011000";
+		case 35:
+			return @"10001000110";
+		case 36:
+			return @"10110001000";
+		case 37:
+			return @"10001101000";
+		case 38:
+			return @"10001100010";
+		case 39:
+			return @"11010001000";
+		case 40:
+			return @"11000101000";
+		case 41:
+			return @"11000100010";
+		case 42:
+			return @"10110111000";
+		case 43:
+			return @"10110001110";
+		case 44:
+			return @"10001101110";
+		case 45:
+			return @"10111011000";
+		case 46:
+			return @"10111000110";
+		case 47:
+			return @"10001110110";
+		case 48:
+			return @"11101110110";
+		case 49:
+			return @"11010001110";
+		case 50:
+			return @"11000101110";
+		case 51:
+			return @"11011101000";
+		case 52:
+			return @"11011100010";
+		case 53:
+			return @"11011101110";
+		case 54:
+			return @"11101011000";
+		case 55:
+			return @"11101000110";
+		case 56:
+			return @"11100010110";
+		case 57:
+			return @"11101101000";
+		case 58:
+			return @"11101100010";
+		case 59:
+			return @"11100011010";
+		case 60:
+			return @"11101111010";
+		case 61:
+			return @"11001000010";
+		case 62:
+			return @"11110001010";
+		case 63:
+			return @"10100110000";
+		case 64:
+			return @"10100001100";
+		case 65:
+			return @"10010110000";
+		case 66:
+			return @"10010000110";
+		case 67:
+			return @"10000101100";
+		case 68:
+			return @"10000100110";
+		case 69:
+			return @"10110010000";
+		case 70:
+			return @"10110000100";
+		case 71:
+			return @"10011010000";
+		case 72:
+			return @"10011000010";
+		case 73:
+			return @"10000110100";
+		case 74:
+			return @"10000110010";
+		case 75:
+			return @"11000010010";
+		case 76:
+			return @"11001010000";
+		case 77:
+			return @"11110111010";
+		case 78:
+			return @"11000010100";
+		case 79:
+			return @"10001111010";
+		case 80:
+			return @"10100111100";
+		case 81:
+			return @"10010111100";
+		case 82:
+			return @"10010011110";
+		case 83:
+			return @"10111100100";
+		case 84:
+			return @"10011110100";
+		case 85:
+			return @"10011110010";
+		case 86:
+			return @"11110100100";
+		case 87:
+			return @"11110010100";
+		case 88:
+			return @"11110010010";
+		case 89:
+			return @"11011011110";
+		case 90:
+			return @"11011110110";
+		case 91:
+			return @"11110110110";
+		case 92:
+			return @"10101111000";
+		case 93:
+			return @"10100011110";
+		case 94:
+			return @"10001011110";
+		case 95:
+			return @"10111101000";
+		case 96:
+			return @"10111100010";
+		case 97:
+			return @"11110101000";
+		case 98:
+			return @"11110100010";
+		case 99:
+			return @"10111011110";
     }
     return @"";
 }
