@@ -43,7 +43,7 @@
 // -----------------------------------------------------------------------------------
 {
     int startCode=0, sum=0;
-    char *code = (char *)[[self content] lossyCString];
+    char *code = (char *)[[self content] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
 
     switch (codeSet)
     {
@@ -64,7 +64,7 @@
             sum += j * [self _valueForChar:code[i]];
     else { // SET_C
 		if(codeLen % 2 != 0){
-			code = (char *)[[NSString stringWithFormat:@"0%@", [self content]] lossyCString];
+			code = (char *)[[NSString stringWithFormat:@"0%@", [self content]] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
 			codeLen ++;
 		}
         for (int i=0, j = 1; i < codeLen; i+=2, j++){
@@ -611,7 +611,7 @@
                 numNonPrinting = 0,
                 numLowerCase = 0,
                 i;
-    char 	*code = (char *)[[self content] lossyCString];
+    char 	*code = (char *)[[self content] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
     
     for (i=0; i < strlen(code); i++)
     {
@@ -862,14 +862,14 @@
 // -----------------------------------------------------------------------------------
 {
     NSMutableString 	*theReturn = [NSMutableString stringWithString:@""];
-    char *	code = (char *)[[self content] lossyCString];
+    char *	code = (char *)[[self content] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
     int		i;
     
     if (codeSet == SET_C)
     {
         // Left-pad with zero if odd number of characters
         if (strlen(code)%2 != 0)
-            code = (char *)[[NSString stringWithFormat:@"0%@",[NSString stringWithCString:code]] lossyCString];
+            code = (char *)[[NSString stringWithFormat:@"0%@",[NSString stringWithCString:code encoding:NSStringEncodingConversionAllowLossy]] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
 
         // Encode character pairs
         for (i=0; i < strlen(code); i+=2)

@@ -135,7 +135,7 @@
 // -----------------------------------------------------------------------------------
 {
     int			i;
-    char		*contentString = (char *)[[self content] lossyCString];
+    char		*contentString = (char *)[[self content] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
 
     for (i = 0; i < strlen(contentString); i++)
     {
@@ -150,7 +150,7 @@
 {
     int 		theSum=0;
     int 		i, checkValue;
-    char		*contentString = (char *)[[self content] lossyCString];
+    char		*contentString = (char *)[[self content] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
 
     for (i = 0; i < strlen(contentString); i++)
     {

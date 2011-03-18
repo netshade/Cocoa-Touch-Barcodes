@@ -2,7 +2,7 @@
 //  NKDModifiedPlesseyBarcode.m
 // -----------------------------------------------------------------------------------
 //  Created by Jeff LaMarche on Tue May 07 2002.
-//  ©2002 Naked Software. All rights reserved.
+//  ï¿½2002 Naked Software. All rights reserved.
 // -----------------------------------------------------------------------------------
 // THIS	SOURCE CODE IS PROVIDED AS-IS WITH NO WARRANTY OF ANY KIND
 // -----------------------------------------------------------------------------------
@@ -76,7 +76,7 @@
 // -----------------------------------------------------------------------------------
 {
     NSMutableString *newNum = [NSMutableString stringWithString:@""];
-    char 	*code = (char *)[[self content] lossyCString], *productString;
+    char 	*code = (char *)[[self content] cStringUsingEncoding:NSStringEncodingConversionAllowLossy], *productString;
     NSNumber	*product;
     int 	i, productSum=0;
 
@@ -90,7 +90,7 @@
     product = [NSNumber numberWithInt:[newNum intValue] * 2];
 
     // Add all of the digits of the product from step two.
-    productString = (char *)[[product stringValue] lossyCString];
+    productString = (char *)[[product stringValue] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
     for (i = 0; i < strlen(productString); i++)
         productSum += (productString[i] - '0');
 

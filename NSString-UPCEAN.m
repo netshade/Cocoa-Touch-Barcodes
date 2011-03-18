@@ -18,7 +18,7 @@
 {
     int 		i;
     NSMutableString	*ret = [NSMutableString stringWithString:@""];
-    char 		*code = (char *) [self lossyCString];
+    char 		*code = (char *) [self cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
 
     for (i = 0; i < strlen(code); i++)
     {
@@ -36,7 +36,7 @@
     /*
      To arrive at the even encoding, work from the left encoding and do the following: 1) Change all the 1's to 0's and 0's to 1. 2) Read the resulting encoding in reverse order (from right to left). The result is the "left-hand even" encoding pattern.
      */
-    char		*tmp = (char *)[[self swapHandedness] lossyCString];
+    char		*tmp = (char *)[[self swapHandedness] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
     NSMutableString	*ret = [NSMutableString stringWithString:@""];
     int			i;
 

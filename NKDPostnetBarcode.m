@@ -2,7 +2,7 @@
 //  NKDPostnetBarcode.m
 // -----------------------------------------------------------------------------------
 //  Created by Jeff LaMarche on Sun May 05 2002.
-//  ©2002 Naked Software. All rights reserved.
+//  ï¿½2002 Naked Software. All rights reserved.
 // -----------------------------------------------------------------------------------
 // THIS	SOURCE CODE IS PROVIDED AS-IS WITH NO WARRANTY OF ANY KIND
 // -----------------------------------------------------------------------------------
@@ -96,7 +96,7 @@
                 andBar:(int)bar
 // -----------------------------------------------------------------------------------
 {
-    char *	barcode = (char *) [content lossyCString];
+    char *	barcode = (char *) [content cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
     char	check;
 
     check = (index >= strlen(barcode)) ? checkDigit : barcode[index];
@@ -201,7 +201,7 @@
 -(void)generateChecksum
 // -----------------------------------------------------------------------------------
 {
-    char *	code = (char *)[[self content] lossyCString];
+    char *	code = (char *)[[self content] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
     int		i, sum=0;
 
     for (i = 0; i < strlen(code); i++)

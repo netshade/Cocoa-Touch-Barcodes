@@ -167,7 +167,7 @@
     int			i;
     char		*contentString;
 
-    contentString = (char *)[[self content] lossyCString];
+    contentString = (char *)[[self content] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
 
     for (i = 0; i < strlen(contentString); i++)
         if ([[self _encodeChar:contentString[i]] isEqual:@""])
@@ -202,7 +202,7 @@
     int			i;
     char		*contentString;
 
-    contentString = (char *)[[self content] lossyCString];
+    contentString = (char *)[[self content] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
 
     for (i = 0; i < strlen(contentString); i++)
         [theReturn appendString:[self _encodeChar:contentString[i]]];

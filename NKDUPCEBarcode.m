@@ -40,7 +40,7 @@
     char		*contentString;
     char		numSystem;
 
-    contentString = (char *)[[self content] lossyCString];
+    contentString = (char *)[[self content] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
     numSystem = contentString[0];
 
     // We skip over number system digit and encode the middle six, using the check digit
@@ -96,7 +96,7 @@
 -(BOOL) isContentValid
 // -----------------------------------------------------------------------------------
 {
-    char		*contentString = (char *)[[self content] lossyCString];
+    char		*contentString = (char *)[[self content] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
 
     // Number System must be 0 or 1, elsewise it's an EAN-8 value and needs to be
     // instantiated as an NKDEAN8Barcode

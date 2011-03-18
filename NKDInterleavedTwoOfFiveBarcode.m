@@ -2,7 +2,7 @@
 //  NKDInterleavedTwoOfFiveBarcode.m
 // -----------------------------------------------------------------------------------
 //  Created by Jeff LaMarche on Sat May 04 2002.
-//  ©2002 Naked Software. All rights reserved.
+//  ï¿½2002 Naked Software. All rights reserved.
 // -----------------------------------------------------------------------------------
 // THIS	SOURCE CODE IS PROVIDED AS-IS WITH NO WARRANTY OF ANY KIND
 // -----------------------------------------------------------------------------------
@@ -27,7 +27,7 @@
     if ([encodeTemp length] %2 != 0)
         [encodeTemp insertString:@"0" atIndex:0];
 
-    barcode = (char *)[encodeTemp lossyCString];
+    barcode = (char *)[encodeTemp cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
     
     for (i = 0; i < strlen(barcode); i+=2)
     {
@@ -106,7 +106,7 @@
     
     NSMutableString 	*tempContent = ([content length] %2 == 0) ? [NSMutableString stringWithString:content]
                                                                : [NSMutableString stringWithFormat:@"0%@", content];
-    char		*encodeString = (char *)[tempContent lossyCString];
+    char		*encodeString = (char *)[tempContent cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
     
     for (i = 0; i < strlen(encodeString); i += 2)
     {
@@ -123,7 +123,7 @@
 {
     // Interleaved 2 of 5 can only encode numbers
     int 	i;
-    char	*code = (char *)[content lossyCString];
+    char	*code = (char *)[content cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
 
     for (i=0; i < strlen(code);i++)
     {

@@ -2,7 +2,7 @@
 //  NKDAbstractUPCEANBarcode.m
 // -----------------------------------------------------------------------------------
 //  Created by Jeff LaMarche on Sat May 11 2002.
-//  ©2002 Naked Software. All rights reserved.
+//  ï¿½2002 Naked Software. All rights reserved.
 // -----------------------------------------------------------------------------------
 // THIS	SOURCE CODE IS PROVIDED AS-IS WITH NO WARRANTY OF ANY KIND
 // -----------------------------------------------------------------------------------
@@ -102,8 +102,8 @@
 	int     evenSum = 0;
 	int        i, checkInt;
 	int     even = 1;
-	//char *    code = (char *) [content lossyCString];
-	char *    code = (char *) [content cString];
+	//char *    code = (char *) [content cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
+	char *    code = (char *) [content cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
 	if (strlen(code) == 11)
 	{
 		i = strlen(code);

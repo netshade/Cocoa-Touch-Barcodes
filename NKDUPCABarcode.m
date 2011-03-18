@@ -23,7 +23,7 @@
 
     if ([content length] >= 12)
     {
-        tempString = (char *)[[self content] lossyCString];
+        tempString = (char *)[[self content] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
         checkDigit = tempString[11];
         [self setContent:[[self content] substringWithRange:range]];
 		//[self generateChecksum];
@@ -44,7 +44,7 @@
     int			i;
     char		*contentString;
 
-    contentString = (char *)[[self content] lossyCString];
+    contentString = (char *)[[self content] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
 
     // First six characters (number system character plus first
     // five digits) encoded with left hand (odd) parity.
@@ -76,7 +76,7 @@
 	int     evenSum = 0;
 	int        i, checkInt;
 	int     even = 1;
-	char *    code = (char *) [content cString];
+	char *    code = (char *) [content cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
 	if (strlen(code) == 11)
 	{
 		i = strlen(code);
@@ -100,7 +100,7 @@
     int 	oddSum = 0;
     int 	evenSum = 0;
     int		i, checkInt;
-    char *	code = (char *) [content lossyCString];
+    char *	code = (char *) [content cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
     
     if (strlen(code) == 11)
     {
@@ -139,7 +139,7 @@
     char		*contentString;
 	char		tempCheck;
 
-    contentString = (char *)[[self content] lossyCString];
+    contentString = (char *)[[self content] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
 
     if (strlen(contentString) != 11)
         return NO;
