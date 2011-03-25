@@ -2,7 +2,7 @@
 // NKDEAN8Barcode.m
 // -----------------------------------------------------------------------------------
 //  Created by Jeff LaMarche on Wed May 29 2002.
-//  ©2002 Naked Software. All rights reserved.
+//  ï¿½2002 Naked Software. All rights reserved.
 // -----------------------------------------------------------------------------------
 // THIS	SOURCE CODE IS PROVIDED AS-IS WITH NO WARRANTY OF ANY KIND
 // -----------------------------------------------------------------------------------
@@ -50,7 +50,7 @@
     char		*contentString;
     char		numSystem;
 
-    contentString = (char *)[[self content] lossyCString];
+    contentString = (char *)[[self content] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
     numSystem = contentString[0];
 
     [theReturn appendString:[self _encodeChar:contentString[0]]];
@@ -72,7 +72,7 @@
 	return [NSString stringWithFormat:@" %@\t%@%c", [content substringWithRange:NSMakeRange(0,4)],
                                                        [content substringWithRange:NSMakeRange(4,3)],
                                                        [self checkDigit]];
-	
+
 }
 // -----------------------------------------------------------------------------------
 -(BOOL) isContentValid
@@ -87,12 +87,12 @@
     int 	oddSum = 0;
     int 	evenSum = 0;
     int		checkInt;
-    char *	code = (char *) [content lossyCString];
-    
+    char *	code = (char *) [content cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
+
     oddSum += (code[0] - '0') + (code[2] - '0') + (code[4] - '0') + (code[6] - '0');
     evenSum += (code[1] - '0') + (code[3] - '0') + (code[5] - '0');
     checkInt = 10 - (((oddSum * 3) + evenSum) % 10);
-    
+
     if (checkInt == 10)
         checkInt = 0;
 
