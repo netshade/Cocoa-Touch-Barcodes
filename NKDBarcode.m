@@ -314,7 +314,7 @@
 -(NSString *)description
 // -----------------------------------------------------------------------------------
 {
-    return [NSString stringWithFormat:@"\n\tBarcode Class: %@\n\tContent: %@\n\tCheck Digit:%c\n\tWidth:%f\n\t%Height:%f\n\tBar Width:%f\n\tFont Size:%f\n\tCaption Height:%f",
+    return [NSString stringWithFormat:@"\n\tBarcode Class: %@\n\tContent: %@\n\tCheck Digit:%c\n\tWidth:%f\n\tHeight:%f\n\tBar Width:%f\n\tFont Size:%f\n\tCaption Height:%f",
         [self class],
         [self content],
         [self checkDigit],
