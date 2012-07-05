@@ -338,6 +338,7 @@
 				GCC_PREFIX_HEADER = CocoaTouchBarcodes_Prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = CocoaTouchBarcodes;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -355,6 +356,7 @@
 				GCC_PREFIX_HEADER = CocoaTouchBarcodes_Prefix.pch;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = CocoaTouchBarcodes;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
