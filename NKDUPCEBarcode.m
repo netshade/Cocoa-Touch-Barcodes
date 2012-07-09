@@ -88,9 +88,9 @@
 // -----------------------------------------------------------------------------------
 {
     if ( (index < 7) || (index > ([[self completeBarcode] length] - 4)))
-        return 0.05*kScreenResolution;
+        return 0.05*screenResolution();
     else
-        return [self captionHeight] * kScreenResolution;
+        return [self captionHeight] * screenResolution();
 }
 // -----------------------------------------------------------------------------------
 -(BOOL) isContentValid

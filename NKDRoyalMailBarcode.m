@@ -159,12 +159,12 @@ static float royalmail_barBottom( int hexDigit ) {
         }
         [self setContent:inContent];
 
-        [self setBarWidth:CBC_BAR_WIDTH*CBC_INCHES_PER_MILLIMETER*kScreenResolution];
+        [self setBarWidth:CBC_BAR_WIDTH*CBC_INCHES_PER_MILLIMETER*screenResolution()];
         [self setPrintsCaption:NO];
 
         // RM4SCC has a mandatory check digit
         [self generateChecksum];
-        [self setHeight:CBC_ASCENDER_TOP*CBC_INCHES_PER_MILLIMETER*kScreenResolution];
+        [self setHeight:CBC_ASCENDER_TOP*CBC_INCHES_PER_MILLIMETER*screenResolution()];
 
         // Calculate width based on number of bars needed to encode this content
         [self calculateWidth];
@@ -240,7 +240,7 @@ static float royalmail_barBottom( int hexDigit ) {
 {
     return royalmail_barTop( [self _barDescriptor:index] ) *
               CBC_INCHES_PER_MILLIMETER *
-              kScreenResolution;
+              screenResolution();
 }
 
 // -----------------------------------------------------------------------------------
@@ -249,7 +249,7 @@ static float royalmail_barBottom( int hexDigit ) {
 {
     return royalmail_barBottom( [self _barDescriptor:index] ) *
               CBC_INCHES_PER_MILLIMETER *
-              kScreenResolution;    
+              screenResolution();    
 }
 
 // -----------------------------------------------------------------------------------

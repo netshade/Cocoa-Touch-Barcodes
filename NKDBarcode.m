@@ -10,6 +10,7 @@
 // -----------------------------------------------------------------------------------
 #import "NKDBarcode.h"
 #import <UIKit/UIKit.h>
+#import <sys/utsname.h>
 
 @implementation NKDBarcode
 // -----------------------------------------------------------------------------------
@@ -26,8 +27,8 @@
 {
     return [self initWithContent:inContent
                    printsCaption:inPrints
-                     andBarWidth:.013*kScreenResolution
-                       andHeight:.5*kScreenResolution
+                     andBarWidth:.013*screenResolution()
+                       andHeight:.5*screenResolution()
                      andFontSize:6.0
                    andCheckDigit:(char)-1];
 }
@@ -55,7 +56,7 @@
         //if (![self printsCaption])
             [self setHeight:inHeight];
         //else
-            [self setHeight:inHeight + (captionHeight*kScreenResolution)];
+            [self setHeight:inHeight + (captionHeight*screenResolution())];
 
         // Calculate width based on number of bars needed to encode this content
         [self calculateWidth];
@@ -68,6 +69,33 @@
         [self setCheckDigit: inDigit];
     }
     return self;
+}
+// -----------------------------------------------------------------------------------
+float screenResolution()
+// -----------------------------------------------------------------------------------
+{
+	struct utsname systemInfo;
+	uname(&systemInfo);
+	char *name = systemInfo.machine;
+
+	float ppi;
+	if ((strstr(name, "ipod") != NULL) && (strstr(name, "ipod4") == NULL)) {
+		// older ipod touches
+		ppi = 163;
+	} else if ((strstr(name, "iphone") != NULL) && (strstr(name, "iphone3") == NULL)) {
+		// older non-retina iphones
+		ppi = 163;
+	} else if ((strstr(name, "ipad") != NULL) && (strstr(name, "ipad3") == NULL)) {
+		// ipad 1, ipad 2
+		ppi = 132;
+	} else if (strstr(name, "ipad3") != NULL) {
+		// ipad 3
+		ppi = 264;
+	} else {
+		// iphone 4/4s, ipod touch 4g or simulator
+		ppi = 326;
+	}
+	return ppi;
 }
 // -----------------------------------------------------------------------------------
 -(void)setContent:(NSString *)inContent
@@ -288,7 +316,7 @@
 // -----------------------------------------------------------------------------------
 {
     if ([self printsCaption])
-        return  captionHeight * kScreenResolution;
+        return  captionHeight * screenResolution();
     else
         return 0.0;
 }
