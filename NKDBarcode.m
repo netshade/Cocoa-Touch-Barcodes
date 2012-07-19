@@ -79,16 +79,16 @@ float screenResolution()
 	char *name = systemInfo.machine;
 
 	float ppi;
-	if ((strstr(name, "ipod") != NULL) && (strstr(name, "ipod4") == NULL)) {
+	if ((strstr(name, "iPod") != NULL) && (strstr(name, "iPod4") == NULL)) {
 		// older ipod touches
 		ppi = 163;
-	} else if ((strstr(name, "iphone") != NULL) && (strstr(name, "iphone3") == NULL)) {
+	} else if ((strstr(name, "iPhone") != NULL) && (strstr(name, "iPhone3") == NULL)) {
 		// older non-retina iphones
 		ppi = 163;
-	} else if ((strstr(name, "ipad") != NULL) && (strstr(name, "ipad3") == NULL)) {
+	} else if ((strstr(name, "iPad") != NULL) && (strstr(name, "iPad3") == NULL)) {
 		// ipad 1, ipad 2
 		ppi = 132;
-	} else if (strstr(name, "ipad3") != NULL) {
+	} else if (strstr(name, "iPad3") != NULL) {
 		// ipad 3
 		ppi = 264;
 	} else {
