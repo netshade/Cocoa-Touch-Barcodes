@@ -48,3 +48,10 @@ Current status:
 
  * I'm very inactive with maintenance.  I'm not currently maintaining the code, nor do I have a plan to get to any of the major checklist items anytime soon.  If you're interested in taking a more active role in development, contact me and I'll do what I can to help you out.
 
+Other contributors:
+ * [dalewking](https://github.com/dalewking)
+ * [mdestagnol](https://github.com/mdestagnol)
+ * [teh1ghool](https://github.com/teh1ghool)
+ * [jasonkhonm](https://github.com/jasonkhonm)
+
+
