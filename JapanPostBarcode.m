@@ -182,7 +182,7 @@ unsigned int japanpost_barDescriptor(unsigned int descriptor,unsigned int bar,un
 		}
 	}
 	cd = 19 * (checkValue / 19 + 1) - checkValue;
-	if ((0 <= cd) && (10 > cd))
+	if (10 > cd)
 		character = '0' + cd;
 	else {
 		if (10 == cd)
