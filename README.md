@@ -1,4 +1,4 @@
-This is a fork of Jeff Lamarche's Cocoa Barcodes project, with the code modified to work on the iPhone and iPad.  In my testing, a CCD and laser scanner can read UPC and Code 128 barcodes directly from the screen w/ no issue.  I haven't tested other barcodes yet.
+This is a fork of [Jeff Lamarche's Cocoa Barcodes project](http://code.google.com/p/cocoabarcodes/), with the code modified to work on the iPhone and iPad.  In my testing, a CCD and laser scanner can read UPC and Code 128 barcodes directly from the screen w/ no issue.  I haven't tested other barcodes yet.
 
 Usage:
 You can add the project as a dependency to your existing project and add a target dependency on the static library target.  Alternatively you can add the source code bulk to your own project.
