@@ -2,7 +2,7 @@
 //  NKDAbstractUPCEANBarcode.h
 // -----------------------------------------------------------------------------------
 //  Created by Jeff LaMarche on Sat May 11 2002.
-//  ©2002 Naked Software. All rights reserved.
+//  ï¿½2002 Naked Software. All rights reserved.
 // -----------------------------------------------------------------------------------
 // THIS	SOURCE CODE IS PROVIDED AS-IS WITH NO WARRANTY OF ANY KIND
 // -----------------------------------------------------------------------------------

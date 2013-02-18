@@ -44,7 +44,6 @@
     {
         if (!inContent)
         {
-            [self release];
             return nil;
         }
         [self setContent:inContent];
@@ -73,8 +72,7 @@
 -(void)setContent:(NSString *)inContent
 // -----------------------------------------------------------------------------------
 {
-    [content autorelease];
-    content = [inContent retain];
+    content = inContent;
 }
 // -----------------------------------------------------------------------------------
 -(void)setHeight:(float)inHeight
@@ -314,7 +312,7 @@
 -(NSString *)description
 // -----------------------------------------------------------------------------------
 {
-    return [NSString stringWithFormat:@"\n\tBarcode Class: %@\n\tContent: %@\n\tCheck Digit:%c\n\tWidth:%f\n\t%Height:%f\n\tBar Width:%f\n\tFont Size:%f\n\tCaption Height:%f",
+    return [NSString stringWithFormat:@"\n\tBarcode Class: %@\n\tContent: %@\n\tCheck Digit:%c\n\tWidth:%f\n\tHeight:%f\n\tBar Width:%f\n\tFont Size:%f\n\tCaption Height:%f",
         [self class],
         [self content],
         [self checkDigit],
@@ -384,12 +382,5 @@
     [coder encodeValueOfObjCType:@encode(float) at:&captionHeight];
     [coder encodeValueOfObjCType:@encode(char) at:&checkDigit];
 
-}
-// -----------------------------------------------------------------------------------
--(void)dealloc
-// -----------------------------------------------------------------------------------
-{
-    [content release];
-    [super dealloc];
 }
 @end
