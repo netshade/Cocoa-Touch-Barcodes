@@ -854,6 +854,12 @@
 			return @"11110100010";
 		case 99:
 			return @"10111011110";
+		case 100:
+			return @"10111101110";
+		case 101:
+			return @"11101011110";
+		case 102:
+			return @"11110101110";
     }
     return @"";
 }
