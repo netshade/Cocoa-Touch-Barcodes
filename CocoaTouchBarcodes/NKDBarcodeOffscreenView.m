@@ -189,7 +189,6 @@
 -(void)setBarcode:(NKDBarcode *)inBarcode
 // -----------------------------------------------------------------------------------
 {
-    [barcode autorelease];
     barcode = inBarcode;
 }
 // -----------------------------------------------------------------------------------
@@ -230,11 +229,11 @@
 
 - (NSData *)pdfInsideRect:(CGRect)rect {
 	NSMutableData * data = [NSMutableData data];
-	CGDataConsumerRef consumer = CGDataConsumerCreateWithCFData((CFMutableDataRef)data);
+	CGDataConsumerRef consumer = CGDataConsumerCreateWithCFData((__bridge CFMutableDataRef)data);
 	CGRect media = CGRectMake(0.0, 0.0, rect.size.width, rect.size.height);
-	CGContextRef context = CGPDFContextCreate(consumer, &media, (CFDictionaryRef)[NSDictionary dictionary]);
+	CGContextRef context = CGPDFContextCreate(consumer, &media, (__bridge CFDictionaryRef)[NSDictionary dictionary]);
 	UIGraphicsPushContext(context);
-	CGPDFContextBeginPage(context, (CFDictionaryRef)[NSDictionary dictionary]);
+	CGPDFContextBeginPage(context, (__bridge CFDictionaryRef)[NSDictionary dictionary]);
 	[self drawRect:rect];
 	UIGraphicsPopContext();
 	CGPDFContextEndPage(context);

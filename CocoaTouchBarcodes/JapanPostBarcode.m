@@ -80,7 +80,7 @@ unsigned int japanpost_barDescriptor(unsigned int descriptor,unsigned int bar,un
 	unsigned int bar;
     unsigned int hexDigit;
     unsigned int descriptor;
-    unsigned int contentLength = [japanpostContents length];
+    unsigned int contentLength = [_japanpostContents length];
 
     if ([[self initiator] length] > index) {
 		bar = index % [[self initiator] length];
@@ -98,7 +98,7 @@ unsigned int japanpost_barDescriptor(unsigned int descriptor,unsigned int bar,un
 
 			bar = (index - [[self initiator] length]) % (2 * numberLength); // 1文字の中の何番目のバーになるか //
 			if (digit != contentLength) {
-				hexDigit = japanpost_characterDescriptor( [[self japanpostContents] characterAtIndex:digit] );
+				hexDigit = japanpost_characterDescriptor( [_japanpostContents characterAtIndex:digit] );
 				descriptor = japanpost_barDescriptor( hexDigit, bar,numberLength);
 			}
 			else { // last digit is checksum
@@ -108,10 +108,6 @@ unsigned int japanpost_barDescriptor(unsigned int descriptor,unsigned int bar,un
 		}
 	}
 	return descriptor;
-}
-
-- (NSString *)japanpostContents {
-	return japanpostContents;
 }
 
 // override //
@@ -165,8 +161,8 @@ unsigned int japanpost_barDescriptor(unsigned int descriptor,unsigned int bar,un
 	unichar uChar,character;
 	unsigned int checkValue = 0;
 
-	for (i = 0; i < [japanpostContents length]; i++) {
-		uChar = [japanpostContents characterAtIndex:i];
+	for (i = 0; i < _japanpostContents.length; i++) {
+		uChar = [_japanpostContents characterAtIndex:i];
 		if ('-' == uChar)
 			checkValue += 10; // 10 //
 		else {
@@ -257,10 +253,8 @@ unsigned int japanpost_barDescriptor(unsigned int descriptor,unsigned int bar,un
 			tempContents = [NSMutableString stringWithString:[tempCStr substringWithRange:NSMakeRange(0,validCount)]];
 		}
 	}
-	[japanpostContents release];
-	japanpostContents = [[NSString allocWithZone:[self zone]] initWithString:tempStr];
-    [content release];
-    content = [[NSString allocWithZone:[self zone]] initWithString:tempContents];
+	_japanpostContents = [[NSString alloc] initWithString:tempStr];
+    content = [[NSString alloc] initWithString:tempContents];
 	[self generateChecksum];
 }
 
@@ -286,8 +280,8 @@ unsigned int japanpost_barDescriptor(unsigned int descriptor,unsigned int bar,un
 	unsigned int i;
 	NSMutableString *theReturn = [NSMutableString string];
 
-	for (i = 0; i < [japanpostContents length]; i++)
-		[theReturn appendString:[self _encodeChar:[japanpostContents characterAtIndex:i]]];
+	for (i = 0; i < _japanpostContents.length; i++)
+		[theReturn appendString:[self _encodeChar:[_japanpostContents characterAtIndex:i]]];
 	if (checkDigit != -1)
 		[theReturn appendString:[self _encodeChar:checkDigit]];
 	return theReturn;
