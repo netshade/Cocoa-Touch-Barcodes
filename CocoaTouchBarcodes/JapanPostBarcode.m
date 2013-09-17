@@ -8,6 +8,11 @@
 
 #import "JapanPostBarcode.h"
 
+double japanpost_barTop(unsigned int hexDigit,double size);
+double japanpost_barBottom(unsigned int hexDigit,double size);
+unsigned int japanpost_characterDescriptor(unichar character);
+unsigned int japanpost_barDescriptor(unsigned int descriptor,unsigned int bar,unsigned int bars);
+
 @implementation JapanPostBarcode
 
 #define MILLIMETERPERPOINT 0.3527777777777777 // base72.0 //

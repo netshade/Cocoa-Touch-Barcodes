@@ -12,6 +12,7 @@
 #import <UIKit/UIKit.h>
 #import <sys/utsname.h>
 
+
 @implementation NKDBarcode
 // -----------------------------------------------------------------------------------
 -(id)initWithContent: (NSString *)inContent
@@ -70,7 +71,7 @@
     return self;
 }
 // -----------------------------------------------------------------------------------
-float screenResolution()
+float screenResolution(void)
 // -----------------------------------------------------------------------------------
 {
 	struct utsname systemInfo;

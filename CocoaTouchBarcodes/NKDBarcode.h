@@ -41,7 +41,7 @@
 /*!
  @discussion This value is used to determine the drawing location of various bars.
  */
-float screenResolution();
+float screenResolution(void);
 
 /*!
  @class NKDBarcode
