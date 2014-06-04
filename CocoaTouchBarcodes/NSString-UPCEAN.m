@@ -38,7 +38,7 @@
      */
     char		*tmp = (char *)[[self swapHandedness] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
     NSMutableString	*ret = [NSMutableString stringWithString:@""];
-    int			i;
+    NSInteger			i;
 
     for (i = strlen(tmp)-1; i >= 0; i--)
         [ret appendString:[NSString stringWithFormat:@"%c", tmp[i]]];

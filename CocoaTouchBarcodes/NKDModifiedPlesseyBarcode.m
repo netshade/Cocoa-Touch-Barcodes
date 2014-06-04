@@ -78,7 +78,7 @@
     NSMutableString *newNum = [NSMutableString stringWithString:@""];
     char 	*code = (char *)[[self content] cStringUsingEncoding:NSStringEncodingConversionAllowLossy], *productString;
     NSNumber	*product;
-    int 	i, productSum=0;
+    NSInteger 	i, productSum=0;
 
     // Starting from the units position, create a new number with all of
     // the odd position digits in their original sequence.

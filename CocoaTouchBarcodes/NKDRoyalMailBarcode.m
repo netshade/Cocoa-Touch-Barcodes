@@ -207,7 +207,7 @@ static float royalmail_barBottom( int hexDigit ) {
     // (10101010) - checksum
     // 1 - terminator
 
-    int contentLength = [[self content] length];
+    NSInteger contentLength = [[self content] length];
     int hexDigit;
     int descriptor = 0;
 

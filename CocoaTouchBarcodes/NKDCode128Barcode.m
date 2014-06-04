@@ -58,7 +58,7 @@
             break;
     }
 	sum += startCode;
-	int codeLen = strlen(code);
+	NSInteger codeLen = strlen(code);
     if (codeSet != SET_C)
         for (int i=0, j = 1; i < codeLen; i++, j++)
             sum += j * [self _valueForChar:code[i]];
