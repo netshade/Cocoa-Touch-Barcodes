@@ -154,7 +154,6 @@ static float royalmail_barBottom( int hexDigit ) {
     {
         if (!inContent)
         {
-            [self release];
             return nil;
         }
         [self setContent:inContent];
