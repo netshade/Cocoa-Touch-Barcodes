@@ -22,7 +22,6 @@
     {
         if (!inContent)
         {
-            [self release];
             return nil;
         }
         [self setContent:inContent];

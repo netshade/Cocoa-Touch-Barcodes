@@ -257,10 +257,8 @@ unsigned int japanpost_barDescriptor(unsigned int descriptor,unsigned int bar,un
 			tempContents = [NSMutableString stringWithString:[tempCStr substringWithRange:NSMakeRange(0,validCount)]];
 		}
 	}
-	[japanpostContents release];
-	japanpostContents = [[NSString allocWithZone:[self zone]] initWithString:tempStr];
-    [content release];
-    content = [[NSString allocWithZone:[self zone]] initWithString:tempContents];
+	japanpostContents = [[NSString alloc] initWithString:tempStr];
+    content = [[NSString alloc] initWithString:tempContents];
 	[self generateChecksum];
 }
 
