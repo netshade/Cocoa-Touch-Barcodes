@@ -2,7 +2,7 @@
 //  NKDRoyalMailBarcode.h
 // -----------------------------------------------------------------------------------
 //  Created by Trevor Strohman <trevor@ampersandbox.com> on Sun Apr 20 2003.
-//  ©2003 Naked Software. All rights reserved.
+//  ï¿½2003 Naked Software. All rights reserved.
 // -----------------------------------------------------------------------------------
 // THIS	SOURCE CODE IS PROVIDED AS-IS WITH NO WARRANTY OF ANY KIND
 // -----------------------------------------------------------------------------------
@@ -126,7 +126,7 @@
  @discussion Depending on the digit and bar, returns either CBC_TRACK_TOP or CBC_ASCENDER_TOP.
  @result CBC_TRACK_TOP or CBC_ASCENDER_TOP
 */
--(float)barTop:(int)index;
+-(float)barTop:(NSInteger)index;
 
 /*!
  @method barBottom:
@@ -134,7 +134,7 @@
  @discussion Depending on the digit and bar, returns either CBC_TRACK_BOTTOM or CBC_DESCENDER_BOTTOM.
  @result CBC_TRACK_BOTTOM or CBC_DESCENDER_BOTTOM
 */
--(float)barBottom:(int)index;
+-(float)barBottom:(NSInteger)index;
 
 /*!
  @method generateChecksum
