@@ -17,7 +17,8 @@
        printsCaption: (BOOL)inPrints
 // -----------------------------------------------------------------------------------
 {
-    if ([super initWithContent:[inContent uppercaseString] printsCaption:inPrints])
+    self = [super initWithContent:[inContent uppercaseString] printsCaption:inPrints];
+    if (self)
     {
         // CRC is required for Plessey
         [self generateChecksum];

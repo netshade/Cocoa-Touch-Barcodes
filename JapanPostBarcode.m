@@ -247,7 +247,6 @@ NSUInteger japanpost_barDescriptor(NSUInteger descriptor,NSUInteger bar,NSUInteg
 			NSString *tempCStr = [NSString stringWithString:tempContents];
 
 			[tempStr deleteCharactersInRange:NSMakeRange(maxLength,tempL - maxLength)];
-			tempL = [tempStr length];
 			validCount = 0;
 			for (i = 0; i < [tempStr length]; i++) {
 				uChar = [tempStr characterAtIndex:i];

@@ -38,10 +38,8 @@
     NSMutableString 	*theReturn = [NSMutableString stringWithString:@""];
     int			i;
     char		*contentString;
-    char		numSystem;
 
     contentString = (char *)[[self content] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
-    numSystem = contentString[0];
 
     // We skip over number system digit and encode the middle six, using the check digit
     // and number system to decide on the parity, we use only left-hand encoding

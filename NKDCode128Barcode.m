@@ -129,7 +129,7 @@
 -(NSString *)_encodeChar:(char)inChar
 // -----------------------------------------------------------------------------------
 {
-    int 	useSet = codeSet;	// Specifies the code on a per-character basis;
+    int	useSet;	// Specifies the code on a per-character basis;
     NSString 	*prefix;
     
     // *** We currently only switch from A to B and vice versa

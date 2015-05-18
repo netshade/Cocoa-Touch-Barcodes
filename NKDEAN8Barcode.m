@@ -48,10 +48,8 @@
          */
     NSMutableString 	*theReturn = [NSMutableString stringWithString:@""];
     char		*contentString;
-    char		numSystem;
 
     contentString = (char *)[[self content] cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
-    numSystem = contentString[0];
 
     [theReturn appendString:[self _encodeChar:contentString[0]]];
     [theReturn appendString:[self _encodeChar:contentString[1]]];
