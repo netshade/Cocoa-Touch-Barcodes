@@ -102,7 +102,6 @@
     {
 		NSLog(@":::::::NOTE:::::: DOES NOT CURRENTLY PRINT CAPTION");
 		NSLog(@":::::::NOTE:::::: FIX PROGRAMMER");		
-		/*
 		NSMutableAttributedString *sAttr;
 		float kerning;
 		CGSize captionSize;
@@ -114,24 +113,25 @@
 		NSString *caption = [barcode caption];
 		NSString *rightCaption = [barcode rightCaption];
 		float yPos = bBounds.origin.y + heightSpace;
-		//NSFont *font = [NSFont fontWithName:@"Lucida Grande" size:[barcode fontSize]];
-		UIFont *font = [UIFont systemFontOfSize:[barcode fontSize]];
-		
-		NSMutableParagraphStyle	*leftAligmentStyle = [[NSMutableParagraphStyle allocWithZone:[self zone]] init];
 
-		[leftAligmentStyle setParagraphStyle:[NSParagraphStyle defaultParagraphStyle]];
+        UIFont *font = [UIFont systemFontOfSize:[barcode fontSize]];
+        
+		NSMutableParagraphStyle	*leftAligmentStyle = [[NSMutableParagraphStyle alloc] init];
+
         // Left caption for UPC / EAN
 		if ((nil != leftCaption) && (NO == [leftCaption isEqualToString:@""])) {
 			kerning = 0.0;
-			sAttr = [[NSMutableAttributedString allocWithZone:[self zone]] initWithString:leftCaption attributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,leftAligmentStyle,NSParagraphStyleAttributeName,[NSNumber numberWithFloat:kerning],NSKernAttributeName,nil]];
+            sAttr = [[NSMutableAttributedString alloc] initWithString:leftCaption
+                                                           attributes:@{NSFontAttributeName : font,
+                                                                        NSParagraphStyleAttributeName : leftAligmentStyle,
+                                                                        NSKernAttributeName: [NSNumber numberWithFloat:kerning]}];
 			captionSize = [sAttr size];
-			[sAttr drawAtPoint:NSMakePoint(bBounds.origin.x + widthSpace + 0.25 * [barcode firstBar],yPos + 3.0)];
-			[sAttr release];
+			[sAttr drawAtPoint:CGPointMake(bBounds.origin.x + widthSpace + 0.25 * [barcode firstBar], yPos + 3.0)];
 		}
 
         // Draw the main caption under the barcode
 		if ((nil != caption) && (NO == [caption isEqualToString:@""])) {
-			unsigned int cCount,captionLength;
+			NSUInteger cCount,captionLength;
 			NSRange range;
 			float container;
 			NSArray *captions = [caption componentsSeparatedByString:@"\t"];
@@ -143,40 +143,52 @@
 					container = [barcode width] / (float)[captions count] - 1.0 * [[barcode initiator] length] * barWidth - [barcode firstBar]; // [[barcode initiator] length] == [[barcode terminator] length]; && [barcode firstBar] == [barcode width] - [barcode lastBar]; //
 				for (cCount = 0; cCount < [captions count]; cCount++) {
 					kerning = 0.0;
-					sAttr = [[NSMutableAttributedString allocWithZone:[self zone]] initWithString:[captions objectAtIndex:cCount] attributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,leftAligmentStyle,NSParagraphStyleAttributeName,[NSNumber numberWithFloat:kerning],NSKernAttributeName,nil]];
+                    sAttr = [[NSMutableAttributedString alloc] initWithString:[captions objectAtIndex:cCount]
+                                                                   attributes:@{NSFontAttributeName : font,
+                                                                                NSParagraphStyleAttributeName : leftAligmentStyle,
+                                                                                NSKernAttributeName : [NSNumber numberWithFloat:kerning]}];
 					captionSize = [sAttr size];
 					captionLength = [(NSString *)[captions objectAtIndex:cCount] length];
 					kerning = (container - captionSize.width) / (float)(2 * captionLength);
 					range = NSMakeRange(0,captionLength);
-					[sAttr setAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName,leftAligmentStyle,NSParagraphStyleAttributeName,[NSNumber numberWithFloat:1.3 * kerning],NSKernAttributeName,nil] range:range];
-					[sAttr drawAtPoint:NSMakePoint(bBounds.origin.x + widthSpace + kerning * 3 + [barcode firstBar] + (float)(cCount + 1) * [[barcode  initiator] length] * barWidth + (float)cCount * container,yPos)];
-					[sAttr release];
+                    [sAttr setAttributes:@{NSFontAttributeName : font,
+                                           NSParagraphStyleAttributeName : leftAligmentStyle,
+                                           NSKernAttributeName : [NSNumber numberWithFloat:1.3 * kerning]}
+                                   range:range];
+					[sAttr drawAtPoint:CGPointMake(bBounds.origin.x + widthSpace + kerning * 3 + [barcode firstBar] + (float)(cCount + 1) * [[barcode  initiator] length] * barWidth + (float)cCount * container,yPos)];
 				}
 			}
 			else {
+                // hier
 				cCount = 0;
 				kerning = 0.0;
-				sAttr = [[NSMutableAttributedString allocWithZone:[self zone]] initWithString:[captions objectAtIndex:cCount] attributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,leftAligmentStyle,NSParagraphStyleAttributeName,[NSNumber numberWithFloat:kerning],NSKernAttributeName,nil]];
+				sAttr = [[NSMutableAttributedString alloc] initWithString:[captions objectAtIndex:cCount]
+                                                               attributes:@{NSFontAttributeName : font,
+                                                                            NSParagraphStyleAttributeName : leftAligmentStyle,
+                                                                            NSKernAttributeName : [NSNumber numberWithFloat:kerning]}];
 				captionSize = [sAttr size];
 				captionLength = [(NSString *)[captions objectAtIndex:cCount] length];
 				container = [barcode width];
 				kerning = (container - captionSize.width) / (float)(2 * captionLength);
 				range = NSMakeRange(0,captionLength);
-				[sAttr setAttributes:[NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName,leftAligmentStyle,NSParagraphStyleAttributeName,[NSNumber numberWithFloat:2.0 * kerning],NSKernAttributeName,nil] range:range];
-				[sAttr drawAtPoint:NSMakePoint(bBounds.origin.x + widthSpace + kerning,yPos)];
-				[sAttr release];
+                [sAttr setAttributes:@{NSFontAttributeName : font,
+                                       NSParagraphStyleAttributeName : leftAligmentStyle,
+                                       NSKernAttributeName : [NSNumber numberWithFloat:2.0 * kerning]}
+                               range:range];
+                CGPoint drawPoint = CGPointMake(round(bBounds.origin.x + widthSpace + kerning), yPos);
+				[sAttr drawAtPoint:drawPoint];
 			}
 		}
 
         // Right caption for UPC / EAN
 		if ((nil != rightCaption) && (NO == [rightCaption isEqualToString:@""])) {
 			kerning = 0.0;
-			sAttr = [[NSMutableAttributedString allocWithZone:[self zone]] initWithString:rightCaption attributes:[NSDictionary dictionaryWithObjectsAndKeys:font,NSFontAttributeName,leftAligmentStyle,NSParagraphStyleAttributeName,[NSNumber numberWithFloat:kerning],NSKernAttributeName,nil]];
-			[sAttr drawAtPoint:NSMakePoint(bBounds.origin.x + widthSpace + [barcode lastBar] + ([barcode width] * 0.07),yPos + 3.0)];
-			[sAttr release];
+			sAttr = [[NSMutableAttributedString alloc] initWithString:rightCaption
+                                                           attributes:@{NSFontAttributeName : font,
+                                                                        NSParagraphStyleAttributeName : leftAligmentStyle,
+                                                                        NSKernAttributeName : [NSNumber numberWithFloat:kerning]}];
+			[sAttr drawAtPoint:CGPointMake(bBounds.origin.x + widthSpace + [barcode lastBar] + ([barcode width] * 0.07),yPos + 3.0)];
 		}
-		[leftAligmentStyle release];
-		 */
     }
 }
 // -----------------------------------------------------------------------------------
@@ -209,7 +221,7 @@
     /* this method is not intended to be called directly */
 /* used by dataWithPDFInsideRect: when multithreading is required */
 {
-	UIGraphicsBeginImageContext(CGSizeMake(rect.size.width, rect.size.height));
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(rect.size.width, rect.size.height), NO, 0.f);
 	[self drawRect:rect];
 	UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
