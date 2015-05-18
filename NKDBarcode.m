@@ -44,7 +44,6 @@
     {
         if (!inContent)
         {
-            [self release];
             return nil;
         }
         [self setContent:inContent];
@@ -73,8 +72,7 @@
 -(void)setContent:(NSString *)inContent
 // -----------------------------------------------------------------------------------
 {
-    [content autorelease];
-    content = [inContent retain];
+    content = inContent;
 }
 // -----------------------------------------------------------------------------------
 -(void)setHeight:(float)inHeight
@@ -386,10 +384,4 @@
 
 }
 // -----------------------------------------------------------------------------------
--(void)dealloc
-// -----------------------------------------------------------------------------------
-{
-    [content release];
-    [super dealloc];
-}
 @end
