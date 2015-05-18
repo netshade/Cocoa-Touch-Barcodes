@@ -55,10 +55,10 @@ unsigned int numberCodesOfJapan[] = {
     0x021  // CC6 ? //
 };
 
-double japanpost_barTop(unsigned int hexDigit,double size) { // mm単位で返す。 //
+double japanpost_barTop(NSUInteger hexDigit,double size) { // mm単位で返す。 //
 	return (hexDigit & JP_ASCENDER_MASK) ? JP_ASCENDER_TOP * size / 10.0 : JP_TRACK_TOP * size / 10.0;
 }
-double japanpost_barBottom(unsigned int hexDigit,double size) { // mm単位で返す。 //
+double japanpost_barBottom(NSUInteger hexDigit,double size) { // mm単位で返す。 //
 	return (hexDigit & JP_DESCENDER_MASK) ? JP_DESCENDER_BOTTOM * size / 10.0 : JP_TRACK_BOTTOM * size / 10.0;
 }
 unsigned int japanpost_characterDescriptor(unichar character) {
@@ -73,7 +73,7 @@ NSUInteger japanpost_barDescriptor(NSUInteger descriptor,NSUInteger bar,NSUInteg
 	return (descriptor & mask) >> shift;
 }
 
-- (NSUInteger)_barDescriptor:(unsigned int)index
+- (NSUInteger)_barDescriptor:(NSUInteger)index
 // barcode is [self initiator][self barcode][self terminator] //
 // 2 * numberLength がほぼ定数に近い働きをしており、これを変数にすることが難しい。よって'A'~'Z'は2文字の扱いをした。 //
 {
@@ -302,10 +302,10 @@ NSUInteger japanpost_barDescriptor(NSUInteger descriptor,NSUInteger bar,NSUInteg
 	return [barFormat substringToIndex:2 * closeBracketLength - 1]; // 最後の"0"は不要 //
 }
 
-- (float)barTop:(int)index {
+- (float)barTop:(NSInteger)index {
     return (float)(japanpost_barTop([self _barDescriptor:(NSUInteger)index],(double)height) / (double)MILLIMETERPERPOINT);
 }
-- (float)barBottom:(int)index {
+- (float)barBottom:(NSInteger)index {
     return (float)(japanpost_barBottom([self _barDescriptor:(NSUInteger)index],(double)height) / (double)MILLIMETERPERPOINT);    
 }
 
