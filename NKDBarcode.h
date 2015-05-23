@@ -366,7 +366,7 @@
  @param index The bar (from the left, 0-indexed) to specify the bottom position for.
  @result The bottom of the bar in inches from the bottom of the barcode.
 */
--(float)barBottom:(int)index;
+-(float)barBottom:(NSInteger)index;
 
 /*!
  @method barTop:
@@ -378,7 +378,7 @@
  @param index The bar (from the left, 0 indexed) to specify the top position for.
  @result The top of the bar in inches from the bottom of the barcode.
  */
--(float)barTop:(int)index;
+-(float)barTop:(NSInteger)index;
 
 /*!
  @method firstBar

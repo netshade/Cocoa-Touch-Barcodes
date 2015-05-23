@@ -58,7 +58,7 @@
             break;
     }
 	sum += startCode;
-	int codeLen = strlen(code);
+	NSInteger codeLen = strlen(code);
     if (codeSet != SET_C)
         for (int i=0, j = 1; i < codeLen; i++, j++)
             sum += j * [self _valueForChar:code[i]];
@@ -129,7 +129,7 @@
 -(NSString *)_encodeChar:(char)inChar
 // -----------------------------------------------------------------------------------
 {
-    int 	useSet = codeSet;	// Specifies the code on a per-character basis;
+    int	useSet;	// Specifies the code on a per-character basis;
     NSString 	*prefix;
     
     // *** We currently only switch from A to B and vice versa

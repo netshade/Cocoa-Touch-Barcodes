@@ -44,7 +44,6 @@
     {
         if (!inContent)
         {
-            [self release];
             return nil;
         }
         [self setContent:inContent];
@@ -73,8 +72,7 @@
 -(void)setContent:(NSString *)inContent
 // -----------------------------------------------------------------------------------
 {
-    [content autorelease];
-    content = [inContent retain];
+    content = inContent;
 }
 // -----------------------------------------------------------------------------------
 -(void)setHeight:(float)inHeight
@@ -284,7 +282,7 @@
                                                        [content length] - [self digitsToLeft] - [self digitsToRight])];
 }
 // -----------------------------------------------------------------------------------
--(float)barBottom:(int)index
+-(float)barBottom:(NSInteger)index
 // -----------------------------------------------------------------------------------
 {
     if ([self printsCaption])
@@ -293,7 +291,7 @@
         return 0.0;
 }
 // -----------------------------------------------------------------------------------
--(float)barTop:(int)index
+-(float)barTop:(NSInteger)index
 // -----------------------------------------------------------------------------------
 {
         return [self height];
@@ -314,7 +312,7 @@
 -(NSString *)description
 // -----------------------------------------------------------------------------------
 {
-    return [NSString stringWithFormat:@"\n\tBarcode Class: %@\n\tContent: %@\n\tCheck Digit:%c\n\tWidth:%f\n\t%Height:%f\n\tBar Width:%f\n\tFont Size:%f\n\tCaption Height:%f",
+    return [NSString stringWithFormat:@"\n\tBarcode Class: %@\n\tContent: %@\n\tCheck Digit:%c\n\tWidth:%f\n\tHeight:%f\n\tBar Width:%f\n\tFont Size:%f\n\tCaption Height:%f",
         [self class],
         [self content],
         [self checkDigit],
@@ -386,10 +384,4 @@
 
 }
 // -----------------------------------------------------------------------------------
--(void)dealloc
-// -----------------------------------------------------------------------------------
-{
-    [content release];
-    [super dealloc];
-}
 @end

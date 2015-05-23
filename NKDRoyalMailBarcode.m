@@ -116,10 +116,10 @@ static int royalmail_characterDescriptor( unichar character ) {
     return descriptor;
 }
 
-static int royalmail_barDescriptor( int descriptor, int bar ) {
-    int mask;
-    int shift;
-    int hexDigit = 0;
+static NSInteger royalmail_barDescriptor( NSInteger descriptor, NSInteger bar ) {
+    NSInteger mask;
+    NSInteger shift;
+    NSInteger hexDigit = 0;
 
     shift = (3-(bar/2))*4;
     mask = ( 0xF << shift );
@@ -128,7 +128,7 @@ static int royalmail_barDescriptor( int descriptor, int bar ) {
     return hexDigit;
 }
 
-static float royalmail_barTop( int hexDigit ) {
+static float royalmail_barTop( NSInteger hexDigit ) {
     if( hexDigit & CBC_ASCENDER_MASK ) {
         return CBC_ASCENDER_TOP;
     } else {
@@ -136,7 +136,7 @@ static float royalmail_barTop( int hexDigit ) {
     }
 }
 
-static float royalmail_barBottom( int hexDigit ) {
+static float royalmail_barBottom( NSInteger hexDigit ) {
     if( hexDigit & CBC_DESCENDER_MASK ) {
         return CBC_DESCENDER_BOTTOM;
     } else {
@@ -154,7 +154,6 @@ static float royalmail_barBottom( int hexDigit ) {
     {
         if (!inContent)
         {
-            [self release];
             return nil;
         }
         [self setContent:inContent];
@@ -199,7 +198,7 @@ static float royalmail_barBottom( int hexDigit ) {
 }
 
 // -----------------------------------------------------------------------------------
--(int)_barDescriptor:(int)index
+-(NSInteger)_barDescriptor:(NSInteger)index
 // -----------------------------------------------------------------------------------
 {
     // barcode is 10(10101010){contentLength}(10101010)1
@@ -208,17 +207,17 @@ static float royalmail_barBottom( int hexDigit ) {
     // (10101010) - checksum
     // 1 - terminator
 
-    int contentLength = [[self content] length];
-    int hexDigit;
-    int descriptor = 0;
+    NSInteger contentLength = [[self content] length];
+    NSInteger hexDigit;
+    NSInteger descriptor = 0;
 
     if( index == 0 ) {
         descriptor = CBC_OPEN_BRACKET;
     } else if ( index >= (contentLength+1)*8+2 ) {
         descriptor = CBC_CLOSE_BRACKET;
     } else {
-        int digit = (index-2)/8;
-        int bar = (index-2)%8;
+        NSInteger digit = (index-2)/8;
+        NSInteger bar = (index-2)%8;
 
         if( digit != contentLength ) {
             // regular content digit
@@ -235,7 +234,7 @@ static float royalmail_barBottom( int hexDigit ) {
 }
 
 // -----------------------------------------------------------------------------------
--(float)barTop:(int)index
+-(float)barTop:(NSInteger)index
 // -----------------------------------------------------------------------------------
 {
     return royalmail_barTop( [self _barDescriptor:index] ) *
@@ -244,7 +243,7 @@ static float royalmail_barBottom( int hexDigit ) {
 }
 
 // -----------------------------------------------------------------------------------
--(float)barBottom:(int)index
+-(float)barBottom:(NSInteger)index
     // -----------------------------------------------------------------------------------
 {
     return royalmail_barBottom( [self _barDescriptor:index] ) *
