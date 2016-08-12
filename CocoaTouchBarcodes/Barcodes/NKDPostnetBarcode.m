@@ -22,19 +22,18 @@
     {
         if (!inContent)
         {
-            [self release];
             return nil;
         }
         [self setContent:inContent];
 
-        [self setBarWidth:.015*kScreenResolution];
+        [self setBarWidth:.015*screenResolution()];
         [self setPrintsCaption:inPrints];
 
         // Postnet has a mandatory check digit
         [self generateChecksum];
         
         // .125 inch bar height is about the middle of the allowed values
-        [self setHeight:.125*kScreenResolution];
+        [self setHeight:.125*screenResolution()];
 
         // Calculate width based on number of bars needed to encode this content
         [self calculateWidth];
@@ -81,15 +80,15 @@
 
     // Look for and deal with terminator and initiator first
     if (index == 0)
-        return TALL_BAR * kScreenResolution;
+        return TALL_BAR * screenResolution();
 
     if (index >= ([[self completeBarcode] length] - 1))
-        return TALL_BAR * kScreenResolution;
+        return TALL_BAR * screenResolution();
 
     // Now, figure out which digit we're encoding, and which bar of that digit
     digit = (int)((index-3) / 15);
     bar = (index - (digit * 15)) / 3;
-    return [self _heightForDigit:digit andBar:bar] * kScreenResolution;
+    return [self _heightForDigit:digit andBar:bar] * screenResolution();
 }
 // -----------------------------------------------------------------------------------
 -(float)_heightForDigit:(int)index

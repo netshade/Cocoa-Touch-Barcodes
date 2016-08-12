@@ -2,7 +2,7 @@
 // NKDEAN8Barcode.h
 // -----------------------------------------------------------------------------------
 //  Created by Jeff LaMarche on Wed May 29 2002.
-//  ©2002 Naked Software. All rights reserved.
+//  ï¿½2002 Naked Software. All rights reserved.
 // -----------------------------------------------------------------------------------
 // THIS	SOURCE CODE IS PROVIDED AS-IS WITH NO WARRANTY OF ANY KIND
 // -----------------------------------------------------------------------------------
@@ -66,7 +66,7 @@
  @abstract Overridden to specify that guard bars, terminator and initiator should extend down into the caption area
  @param index The index of the bar that you want to find the bottom for (assuming origin at lower left) as an index of
             completeBarcode
- @result Bottom of the bar specified in inches * kScreenResolution
+ @result Bottom of the bar specified in inches * screenResolution()
 */
 -(float)barBottom:(int)index;
 

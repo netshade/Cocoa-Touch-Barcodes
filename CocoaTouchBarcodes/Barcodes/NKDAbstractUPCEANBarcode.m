@@ -89,20 +89,20 @@
 {
 
     if ( (index < 7) || (index > ([[self completeBarcode] length] - 7)) || ( (index >= 45) && (index <= 49)))
-        return 0.05*kScreenResolution;
+        return 0.05*screenResolution();
     else
-        return [self captionHeight] * kScreenResolution;
+        return [self captionHeight] * screenResolution();
 
 }
 // -----------------------------------------------------------------------------------
 -(void)generateChecksum
 // -----------------------------------------------------------------------------------
 {
-	int     oddSum = 0;
-	int     evenSum = 0;
-	int        i, checkInt;
-	int     even = 1;
-	//char *    code = (char *) [content cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
+	NSInteger     oddSum = 0;
+	NSInteger     evenSum = 0;
+	NSInteger     i;
+    NSInteger     checkInt;
+	NSInteger     even = 1;
 	char *    code = (char *) [content cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
 	if (strlen(code) == 11)
 	{

@@ -12,9 +12,9 @@
 
 @interface JapanPostBarcode : NKDBarcode {
 	@private
-	NSString *japanpostContents;
+	NSString *_japanpostContents;
 }
 
-- (NSString *)japanpostContents;
+@property (readonly, strong) NSString *japanpostContents;
 
 @end

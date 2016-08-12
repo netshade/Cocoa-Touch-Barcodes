@@ -10,6 +10,8 @@
 // -----------------------------------------------------------------------------------
 #import "NKDBarcode.h"
 #import <UIKit/UIKit.h>
+#import <sys/utsname.h>
+
 
 @implementation NKDBarcode
 // -----------------------------------------------------------------------------------
@@ -26,8 +28,8 @@
 {
     return [self initWithContent:inContent
                    printsCaption:inPrints
-                     andBarWidth:.013*kScreenResolution
-                       andHeight:.5*kScreenResolution
+                     andBarWidth:.013*screenResolution()
+                       andHeight:.5*screenResolution()
                      andFontSize:6.0
                    andCheckDigit:(char)-1];
 }
@@ -44,7 +46,6 @@
     {
         if (!inContent)
         {
-            [self release];
             return nil;
         }
         [self setContent:inContent];
@@ -55,7 +56,7 @@
         //if (![self printsCaption])
             [self setHeight:inHeight];
         //else
-            [self setHeight:inHeight + (captionHeight*kScreenResolution)];
+            [self setHeight:inHeight + (captionHeight*screenResolution())];
 
         // Calculate width based on number of bars needed to encode this content
         [self calculateWidth];
@@ -70,11 +71,37 @@
     return self;
 }
 // -----------------------------------------------------------------------------------
+float screenResolution(void)
+// -----------------------------------------------------------------------------------
+{
+	struct utsname systemInfo;
+	uname(&systemInfo);
+	char *name = systemInfo.machine;
+
+	float ppi;
+	if ((strstr(name, "iPod") != NULL) && (strstr(name, "iPod4") == NULL)) {
+		// older ipod touches
+		ppi = 163;
+	} else if ((strstr(name, "iPhone") != NULL) && (strstr(name, "iPhone3") == NULL)) {
+		// older non-retina iphones
+		ppi = 163;
+	} else if ((strstr(name, "iPad") != NULL) && (strstr(name, "iPad3") == NULL)) {
+		// ipad 1, ipad 2
+		ppi = 132;
+	} else if (strstr(name, "iPad3") != NULL) {
+		// ipad 3
+		ppi = 264;
+	} else {
+		// iphone 4/4s, ipod touch 4g or simulator
+		ppi = 326;
+	}
+	return ppi;
+}
+// -----------------------------------------------------------------------------------
 -(void)setContent:(NSString *)inContent
 // -----------------------------------------------------------------------------------
 {
-    [content autorelease];
-    content = [inContent retain];
+    content = inContent;
 }
 // -----------------------------------------------------------------------------------
 -(void)setHeight:(float)inHeight
@@ -288,7 +315,7 @@
 // -----------------------------------------------------------------------------------
 {
     if ([self printsCaption])
-        return  captionHeight * kScreenResolution;
+        return  captionHeight * screenResolution();
     else
         return 0.0;
 }
@@ -314,7 +341,7 @@
 -(NSString *)description
 // -----------------------------------------------------------------------------------
 {
-    return [NSString stringWithFormat:@"\n\tBarcode Class: %@\n\tContent: %@\n\tCheck Digit:%c\n\tWidth:%f\n\t%Height:%f\n\tBar Width:%f\n\tFont Size:%f\n\tCaption Height:%f",
+    return [NSString stringWithFormat:@"\n\tBarcode Class: %@\n\tContent: %@\n\tCheck Digit:%c\n\tWidth:%f\n\tHeight:%f\n\tBar Width:%f\n\tFont Size:%f\n\tCaption Height:%f",
         [self class],
         [self content],
         [self checkDigit],
@@ -384,12 +411,5 @@
     [coder encodeValueOfObjCType:@encode(float) at:&captionHeight];
     [coder encodeValueOfObjCType:@encode(char) at:&checkDigit];
 
-}
-// -----------------------------------------------------------------------------------
--(void)dealloc
-// -----------------------------------------------------------------------------------
-{
-    [content release];
-    [super dealloc];
 }
 @end

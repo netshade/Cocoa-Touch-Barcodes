@@ -103,9 +103,9 @@
 // -----------------------------------------------------------------------------------
 {
     if ( (index < 4) || (index > ([[self completeBarcode] length] - 4)) || (index == 33) || (index == 35))
-        return 0.05*kScreenResolution;
+        return 0.05*screenResolution();
     else
-        return [self captionHeight] * kScreenResolution;
+        return [self captionHeight] * screenResolution();
 }
 // -----------------------------------------------------------------------------------
 -(int)digitsToRight

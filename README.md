@@ -23,7 +23,6 @@ TODO:
  * Better documentation
  * Really, the entire API pretty much needs a refactor. The UIImage category as entry point into generating images as a start, NKDBarcodeOffscreenView doesn't really need to subclass UIView, etc.. 
  * Leak checks
- * ARC compatibility? I guess?
 
 Things that are missing:
 

@@ -8,6 +8,11 @@
 
 #import "JapanPostBarcode.h"
 
+double japanpost_barTop(NSUInteger hexDigit,double size);
+double japanpost_barBottom(NSUInteger hexDigit,double size);
+NSUInteger japanpost_characterDescriptor(unichar character);
+NSUInteger japanpost_barDescriptor(NSUInteger descriptor,NSUInteger bar,NSUInteger bars);
+
 @implementation JapanPostBarcode
 
 #define MILLIMETERPERPOINT 0.3527777777777777 // base72.0 //
@@ -27,13 +32,13 @@
 //     1 - 下セミロングバー (JP_DESCENDER_BOTTOM to JP_TRACK_TOP) //
 //     2 - 上セミロングバー  (JP_TRACK_BOTTOM to JP_ASCENDER_TOP) //
 //     3 - ロングバー  (JP_DESCENDER_BOTTOM to JP_ASCENDER_TOP) //
-unsigned int openBracketLength = 2;
-unsigned int openBracket = 0x31; // スタートコード //
-unsigned int closeBracketLength = 2;
-unsigned int closeBracket = 0x13; // ストップコード //
+NSUInteger openBracketLength = 2;
+NSUInteger openBracket = 0x31; // スタートコード //
+NSUInteger closeBracketLength = 2;
+NSUInteger closeBracket = 0x13; // ストップコード //
 NSString *barFormat = @"101010101010101010101010";
-unsigned int numberLength = 3;
-unsigned int numberCodesOfJapan[] = {
+NSUInteger numberLength = 3;
+NSUInteger numberCodesOfJapan[] = {
 	0x030, // -     //
 	0x003, // CC7 . //
 	0x333, // CC8 / //
@@ -55,32 +60,32 @@ unsigned int numberCodesOfJapan[] = {
     0x021  // CC6 ? //
 };
 
-double japanpost_barTop(unsigned int hexDigit,double size) { // mm単位で返す。 //
+double japanpost_barTop(NSUInteger hexDigit,double size) { // mm単位で返す。 //
 	return (hexDigit & JP_ASCENDER_MASK) ? JP_ASCENDER_TOP * size / 10.0 : JP_TRACK_TOP * size / 10.0;
 }
-double japanpost_barBottom(unsigned int hexDigit,double size) { // mm単位で返す。 //
+double japanpost_barBottom(NSUInteger hexDigit,double size) { // mm単位で返す。 //
 	return (hexDigit & JP_DESCENDER_MASK) ? JP_DESCENDER_BOTTOM * size / 10.0 : JP_TRACK_BOTTOM * size / 10.0;
 }
-unsigned int japanpost_characterDescriptor(unichar character) {
+NSUInteger japanpost_characterDescriptor(unichar character) {
 	return numberCodesOfJapan[character - '-'];
 }
 
-unsigned int japanpost_barDescriptor(unsigned int descriptor,unsigned int bar,unsigned int bars)
+NSUInteger japanpost_barDescriptor(NSUInteger descriptor,NSUInteger bar,NSUInteger bars)
 {
-	unsigned int shift = (bars - 1 - (bar / 2)) * 4; // 4ビットずつで1つのバーを表す。bar / 2 番目 //
-	unsigned int mask = 0xF << shift; // 0xfは4ビット分 //
+	NSUInteger shift = (bars - 1 - (bar / 2)) * 4; // 4ビットずつで1つのバーを表す。bar / 2 番目 //
+	NSUInteger mask = 0xF << shift; // 0xfは4ビット分 //
 
 	return (descriptor & mask) >> shift;
 }
 
-- (unsigned int)_barDescriptor:(unsigned int)index
+- (NSUInteger)_barDescriptor:(NSUInteger)index
 // barcode is [self initiator][self barcode][self terminator] //
 // 2 * numberLength がほぼ定数に近い働きをしており、これを変数にすることが難しい。よって'A'~'Z'は2文字の扱いをした。 //
 {
-	unsigned int bar;
-    unsigned int hexDigit;
-    unsigned int descriptor;
-    unsigned int contentLength = [japanpostContents length];
+	NSUInteger bar;
+    NSUInteger hexDigit;
+    NSUInteger descriptor;
+    NSUInteger contentLength = [_japanpostContents length];
 
     if ([[self initiator] length] > index) {
 		bar = index % [[self initiator] length];
@@ -94,11 +99,11 @@ unsigned int japanpost_barDescriptor(unsigned int descriptor,unsigned int bar,un
 			descriptor = japanpost_barDescriptor(hexDigit,bar,closeBracketLength);
 		}
 		else {
-			unsigned int digit = (index - [[self initiator] length]) / (2 * numberLength); // 何文字目か //
+			NSUInteger digit = (index - [[self initiator] length]) / (2 * numberLength); // 何文字目か //
 
 			bar = (index - [[self initiator] length]) % (2 * numberLength); // 1文字の中の何番目のバーになるか //
 			if (digit != contentLength) {
-				hexDigit = japanpost_characterDescriptor( [[self japanpostContents] characterAtIndex:digit] );
+				hexDigit = japanpost_characterDescriptor( [_japanpostContents characterAtIndex:digit] );
 				descriptor = japanpost_barDescriptor( hexDigit, bar,numberLength);
 			}
 			else { // last digit is checksum
@@ -108,10 +113,6 @@ unsigned int japanpost_barDescriptor(unsigned int descriptor,unsigned int bar,un
 		}
 	}
 	return descriptor;
-}
-
-- (NSString *)japanpostContents {
-	return japanpostContents;
 }
 
 // override //
@@ -161,12 +162,12 @@ unsigned int japanpost_barDescriptor(unsigned int descriptor,unsigned int bar,un
 
 - (void)generateChecksum
 {
-	unsigned int i,cd;
+	NSUInteger i,cd;
 	unichar uChar,character;
-	unsigned int checkValue = 0;
+	NSUInteger checkValue = 0;
 
-	for (i = 0; i < [japanpostContents length]; i++) {
-		uChar = [japanpostContents characterAtIndex:i];
+	for (i = 0; i < _japanpostContents.length; i++) {
+		uChar = [_japanpostContents characterAtIndex:i];
 		if ('-' == uChar)
 			checkValue += 10; // 10 //
 		else {
@@ -201,30 +202,30 @@ unsigned int japanpost_barDescriptor(unsigned int descriptor,unsigned int bar,un
 // 大文字化する。20文字に揃える。使用できない文字を排除する。郵便番号の整合性はチェックしない。 //
 {
 	unichar uChar;
-	unsigned int i;
+	NSUInteger i;
 	NSString *uppercaseString = [inContent uppercaseString];
 	NSMutableString *tempStr = [NSMutableString string];
 	NSMutableString *tempContents = [NSMutableString string];
 	NSString *tenStr = @"0123456789";
-	unsigned int maxLength = 20; // 郵便番号7文字+住居表示番号13文字 //
+	NSUInteger maxLength = 20; // 郵便番号7文字+住居表示番号13文字 //
 
 	for (i = 0; i < [uppercaseString length]; i++) {
 		uChar = [uppercaseString characterAtIndex:i];
 		if (('A' <= uChar) && ('Z' >= uChar)) {
 			if ('K' > uChar) {
 				[tempStr appendString:@":"]; // CC1 //
-				[tempStr appendString:[tenStr substringWithRange:NSMakeRange((unsigned int)(uChar - 'A'),1)]];
+				[tempStr appendString:[tenStr substringWithRange:NSMakeRange((NSUInteger)(uChar - 'A'),1)]];
 				[tempContents appendString:[NSString stringWithCharacters:&uChar length:1]];
 			}
 			else {
 				if ('U' > uChar) {
 					[tempStr appendString:@";"]; // CC2 //
-					[tempStr appendString:[tenStr substringWithRange:NSMakeRange((unsigned int)(uChar - 'K'),1)]];
+					[tempStr appendString:[tenStr substringWithRange:NSMakeRange((NSUInteger)(uChar - 'K'),1)]];
 					[tempContents appendString:[NSString stringWithCharacters:&uChar length:1]];
 				}
 				else { // ('Z' >= uChar) //
 					[tempStr appendString:@"<"]; // CC3 //
-					[tempStr appendString:[tenStr substringWithRange:NSMakeRange((unsigned int)(uChar - 'U'),1)]];
+					[tempStr appendString:[tenStr substringWithRange:NSMakeRange((NSUInteger)(uChar - 'U'),1)]];
 					[tempContents appendString:[NSString stringWithCharacters:&uChar length:1]];
 				}
 			}
@@ -242,8 +243,8 @@ unsigned int japanpost_barDescriptor(unsigned int descriptor,unsigned int bar,un
 	}
 	else {
 		if (maxLength < [tempStr length]) {
-			unsigned int validCount;
-			unsigned int tempL = [tempStr length];
+			NSUInteger validCount;
+			NSUInteger tempL = [tempStr length];
 			NSString *tempCStr = [NSString stringWithString:tempContents];
 
 			[tempStr deleteCharactersInRange:NSMakeRange(maxLength,tempL - maxLength)];
@@ -257,16 +258,14 @@ unsigned int japanpost_barDescriptor(unsigned int descriptor,unsigned int bar,un
 			tempContents = [NSMutableString stringWithString:[tempCStr substringWithRange:NSMakeRange(0,validCount)]];
 		}
 	}
-	[japanpostContents release];
-	japanpostContents = [[NSString allocWithZone:[self zone]] initWithString:tempStr];
-    [content release];
-    content = [[NSString allocWithZone:[self zone]] initWithString:tempContents];
+	_japanpostContents = [[NSString alloc] initWithString:tempStr];
+    content = [[NSString alloc] initWithString:tempContents];
 	[self generateChecksum];
 }
 
 - (BOOL)isContentValid
 {
-	unsigned int i;
+	NSUInteger i;
 	unichar uChar;
 	BOOL result = YES;
 
@@ -283,11 +282,11 @@ unsigned int japanpost_barDescriptor(unsigned int descriptor,unsigned int bar,un
 - (NSString *)barcode
 // japanpostContentsを参照するところがNKDBarcodeと異なる。 //
 {
-	unsigned int i;
+	NSUInteger i;
 	NSMutableString *theReturn = [NSMutableString string];
 
-	for (i = 0; i < [japanpostContents length]; i++)
-		[theReturn appendString:[self _encodeChar:[japanpostContents characterAtIndex:i]]];
+	for (i = 0; i < _japanpostContents.length; i++)
+		[theReturn appendString:[self _encodeChar:[_japanpostContents characterAtIndex:i]]];
 	if (checkDigit != -1)
 		[theReturn appendString:[self _encodeChar:checkDigit]];
 	return theReturn;
@@ -305,10 +304,10 @@ unsigned int japanpost_barDescriptor(unsigned int descriptor,unsigned int bar,un
 }
 
 - (float)barTop:(int)index {
-    return (float)(japanpost_barTop([self _barDescriptor:(unsigned int)index],(double)height) / (double)MILLIMETERPERPOINT);
+    return (float)(japanpost_barTop([self _barDescriptor:(NSUInteger)index],(double)height) / (double)MILLIMETERPERPOINT);
 }
 - (float)barBottom:(int)index {
-    return (float)(japanpost_barBottom([self _barDescriptor:(unsigned int)index],(double)height) / (double)MILLIMETERPERPOINT);    
+    return (float)(japanpost_barBottom([self _barDescriptor:(NSUInteger)index],(double)height) / (double)MILLIMETERPERPOINT);    
 }
 
 - (NSString *)_encodeChar:(char)inChar {

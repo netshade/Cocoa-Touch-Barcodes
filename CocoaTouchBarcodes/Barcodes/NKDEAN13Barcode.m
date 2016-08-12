@@ -255,11 +255,10 @@
  -(void)generateChecksum
  // -----------------------------------------------------------------------------------
  {
-	 int     oddSum = 0;
-	 int     evenSum = 0;
-	 int        i, checkInt;
-	 int     even = 1;
-	 //char *    code = (char *) [content cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
+	 NSInteger     oddSum = 0;
+	 NSInteger     evenSum = 0;
+	 NSInteger        i, checkInt;
+	 NSInteger     even = 1;
 	 char *    code = (char *) [content cStringUsingEncoding:NSStringEncodingConversionAllowLossy];
 	 if (strlen(code) == 12)
 	 {
